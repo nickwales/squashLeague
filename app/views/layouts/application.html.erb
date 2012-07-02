@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wimbledon Squash Leagues :: <%= @title %></title>
+    <%= csrf_meta_tag %>
+    <%= render 'layouts/stylesheets' %>
+	<%= javascript_include_tag :defaults %>
+	
+<% #if RAILS_ENV == 'production' %>
+<!--	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-20394306-2']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script> -->
+<% #end %>	
+  </head>
+  <body>
+	<div class="toolbar"> 
+		<div class="toolbar_left">
+			<img src="/images/wimbledonsquash_logo2.png" align="left">
+		</div>
+		<div class="toolbar_right">
+			<ul class="navigation">
+				<ul id="nav">
+					<li><%= link_to "Home", root_path %></li>
+					<li>
+						<%# link_to "Leagues", { :controller => 'pages', :action => 'league' }, :class => 'drops' -%>
+						<%= link_to "Leagues", league_path %>
+
+						<ul class="licious" id="box_one" style="display:none;">
+							<li><%# link_to "TomJohn", :controller => "pages", :action => "league", :page => 1 %></li>
+							<li><%# link_to "Gold 1-5", :controller => "pages", :action => "league", :page => 2 %></li>
+							<li><%# link_to "Gold 6-10", :controller => "pages", :action => "league", :page => 3 %></li>
+							<li><%# link_to "Silver 1-5", :controller => "pages", :action => "league", :page => 4 %></li>
+							<li><%# link_to "Silver 6-10", :controller => "pages", :action => "league", :page => 5 %></li>										
+							<li><%# link_to "Bronze 1-3", :controller => "pages", :action => "league", :page => 6 %></li>										
+						</ul>
+					</li>
+					<li><%= link_to "Ranking", rank_path %></li>
+					<li><%= link_to "About", about_path %></li>
+					<li><%= link_to "Contact", contact_path %></li>
+					<% if signed_in? %>
+						<li><%= link_to "Players", players_path %></li>
+						<li><%= link_to current_player.email, current_player %></li>
+						<li><%= link_to "Sign out", destroy_player_session_path, :method => 'delete' %></li>
+					<% else %>
+						<li><%= link_to "Sign in", new_player_session_path %></li>
+					<% end %>
+				</ul>
+
+		</div>
+	</div>
+
+    <div class="container">
+<!--	<div class="logo"> </div> -->
+		<div class="content_border">
+		<div class="content">
+      <%= render 'layouts/header' %>
+      <section class="round">
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
+        <%= yield %>
+      </section>
+
+      <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+      
+      </div>
+      </div>
+
+<!-- SideBar-->
+	<div class="sidebar">
+		<!-- Latest results from the database -->
+
+
+		<div class="patch">
+		<span class="patch_header">Team Matches</span><br>
+		<% if Rails.env.production? %>
+			<iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=nickwales.co.uk_fflcvb8r0ojnnkfhoi8h1u2qfo%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" style= "border-width:0" width="300" height="200" frameborder="0" scrolling="no"></iframe>
+		<% end %>
+		</div>
+	
+		<div class="patch">
+		<span class="patch_header">Latest Tweets @wimbledonsquash</span><br>
+		<% search = Twitter::Search.new 
+				search.to("wimbledonsquash").per_page(5).each do |r| %>
+
+
+						<span class="tweeter"><%=	"#{r.from_user}:" %></span><br /> <span class="patch_style"><%= "#{r.text}" %></span><br />
+
+				<% end 
+				search.clear %>
+
+		</div>
+
+		<div class="patch">
+		<span class="patch_header">Links</span><br>
+		<a class="patch_style" href="http://bookings.wimbledonclub.co.uk/Web/Login.aspx">Book a court</a><br />
+		<a class="patch_style" href="http://county.leaguemaster.co.uk/">Surrey Cup</a><br />
+		<a class="patch_style" href="http://www.surreysra.co.uk/">Surrey SRA</a><br />
+		<a class="patch_style" href="http://www.squashsite.co.uk/">Squashsite</a><br /><br />
+		</div>
+		
+	</div>
+
+    </div>
+
+
+  </body>
+</html>
+
+
+

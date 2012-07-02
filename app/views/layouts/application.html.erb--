@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SquashLeague</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="player_nav">
+	  <% if player_signed_in? %>
+	    Signed in as <%= current_player.email %>. Not you?
+	    <%= link_to "Sign out", destroy_player_session_path, :method => :delete %>
+		<%= link_to "Change password", edit_player_registration_path %>
+	  <% else %>
+	    <%= link_to "Sign up", new_player_registration_path %> or <%= link_to "sign in", new_player_session_path %>
+	  <% end %>
+	</div>
+<%= yield %>
+
+</body>
+</html>

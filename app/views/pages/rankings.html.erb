@@ -1,0 +1,74 @@
+<%
+ def all_player_matches(player)
+ result = Match.joins(:results).where(:results => {:player_id => player})
+ @player_matches = Array.new
+ result.each do |m|
+   @player_matches << m.id
+ end
+ return @player_matches
+end
+
+
+%>
+
+<table class="league">
+		<h3>Rankings</h3>
+		<tr>
+			<th>Name</th>
+			<th>Played</th>
+			<th>Won</th>
+			<th>Lost</th>
+			<th>Drew</th>
+			<th>Ranking Score</th>
+		</tr>
+
+		<% rankings = Array.new
+
+			Player.where(:active => true).each do |p| 
+				name = p[:name]
+				#played = games_played(p[:id])
+
+				matches = all_player_matches(p)
+				matches_played = matches.count
+				won = 0
+				lost = 0 
+				drawn = 0
+				matches.each do |q|
+
+				result = match_result(q,p.id)	
+
+				if result.to_s == "won"
+					won = won + 1
+				elsif result.to_s == "lost"
+					lost = lost + 1
+				else 
+					drawn = drawn + 1
+				end
+			end
+
+
+				if Ranking.where(:player_id => p[:id]).blank?
+					score = 1000
+				else
+					score = Ranking.where(:player_id => p[:id]).last.score
+				end
+				rankings << { :ID => p[:id], :Name => name, :Played => matches_played, :Won => won, :Lost => lost, :Drew => drawn, :Score => score}
+
+			end	
+%><%
+			sorted_rankings = rankings.sort_by{ |position| position[:Score] }.reverse
+ 			sorted_rankings.each do |p| 
+	
+			if p[:Played] != 0 %>
+			<tr>
+				<td><% if signed_in? %><%= link_to p[:Name], :controller => 'users', :action => 'show', :id => p[:ID] %><% else %><%= p[:Name] %><% end %></td>
+				<td><%= p[:Played] %></td>
+				<td><%= p[:Won] %></td>
+				<td><%= p[:Lost] %></td>
+				<td><%= p[:Drew] %></td>
+				<td><%= p[:Score] %></td> 
+			</tr>
+			<% end 
+			end %>
+
+		</table>

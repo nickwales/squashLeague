@@ -1,0 +1,20 @@
+<h1>All Users</h1>
+
+<%= will_paginate @players %>
+<table class="league">
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Mobile</th>
+		<th>@twitter</th>
+	</tr>
+<% @players.paginate(:page => params[:page]).each do |u| %>	
+	<tr>
+		<td><%= link_to u.name, u %></td>
+		<td><%= mail_to u.email %></td>
+		<td><%= u.phone %></td>
+		<td><%= u.twitter %></td>
+	</tr>
+<% end %>
+</table>
+<%= will_paginate %>

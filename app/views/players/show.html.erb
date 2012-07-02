@@ -1,0 +1,161 @@
+<% current_playerdiv = get_playerdiv_by_id(params[:id]) %>
+
+<table class="league">
+	<tr>
+	  <td><%= gravatar_for @player %></td>
+	  <td font-size="13px"><%= @player.name %> <% if params[:id] == current_player.id.to_s %> &nbsp; <%= link_to "edit your details", :controller => "devise/registrations", :action => "edit", :id => params[:id] %><% end %></td>
+	</tr>
+	<% if params[:id] == current_player.id.to_s 
+		if !current_playerdiv.blank?
+		
+		%>
+	
+	<tr>
+		<td></td>
+		
+		<td><%= link_to "Add a result", :controller => 'matches', :action => 'new' %></td>	
+				
+	</tr>
+
+	<% end
+	end %>
+	<tr>
+		<th>Email</th>
+		<td><%= @player.email %></td>
+	</tr>
+	<tr>
+		<th>Mobile</th>
+		<td><%= @player.phone %></td>
+	</tr>
+	<tr>
+		<th>Twitter</th>
+		<td><% if @player.twitter.blank? %>
+				<%= link_to 'Enter your twitter address to receive updates', edit_player_registration_path(@player) %>
+			<% else %>
+				<%= @player.twitter %></td>
+			<% end %>
+	  </td>
+	</tr>
+</table>
+
+
+
+<% if !current_playerdiv.blank? %>
+
+<h4>Current Opponents</h4>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Mobile</th>
+	</tr>
+			
+<% players = Player.joins(:playerdivs).where(:playerdivs => { :division_id => current_playerdiv.last.division_id }).where("players.id != ?", params[:id]) 
+
+players.each do |player| %>
+	<tr>
+		<td><%= link_to player.name, :controller => 'players', :action => 'show', :id => player.id %></td>
+		<td><%= mail_to player.email %></td>
+		<td><%= player.phone %></td>
+	</tr>
+<% end %>
+	</table>
+<% end %>
+
+<% if !Result.where(:player_id => params[:id]).blank? %>
+		<p><h4>Recent Results</h4></p>
+		<% 	results = show_players_matches(10) %>
+		
+		        <table summary="player results">
+				<tr>
+					<th>Date</th>
+					<th>P1</th>
+					<th>Score</th>
+					<th>Score</th>
+					<th>P2</th>
+					<th> </th>
+				</tr>
+				
+			<% results.each do |r| %>			
+				<tr>			
+					<td><% if Match.find(r[0][:match_id]).created_at.blank? %>
+							N/A
+						<% else %>
+							<%= Match.find(r[0][:match_id]).created_at.strftime("%d %b '%y") %>
+						<% end %>
+					</td>		
+					<td><%= Player.find(r[0][:player_id]).name %>
+					<td><%= r[0][:score]%>
+					<td><%= r[1][:score]%>
+					<td><%= Player.find(r[1][:player_id]).name %>
+					<td><%= link_to "Edit", :controller => 'matches', :action => 'edit', :id => r[0][:match_id] %>
+		        </tr>
+				
+		<% end %>
+		</table>
+      </h1>
+<% end 
+		if @playerDivMatch != "nill" && !current_playerdiv.blank?%>
+<h4>Current Division Results</h4>
+<table>
+	<tr>
+		<th>Date</th>
+		<th>P1</th>
+		<th>Score</th>
+		<th>Score</th>
+		<th>P2</th>
+		<th> </th>
+	</tr>
+	<%
+
+		@playerDivMatch.each do |p|
+		  r = Result.where(:match_id => p.id) %>
+			<tr>
+				<td><% if r[0][:created_at].blank? %>
+						N/A
+					<% else %>
+						<%= r[0][:created_at].strftime("%d %b '%y") %>
+					<% end %>
+				</td>
+				<td><%= player_by_id(r[0][:player_id]).name %></td>
+				<td><%= r[0][:score]%></td>
+				<td><%= r[1][:score]%></td>
+				<td><%= player_by_id(r[1][:player_id]).name %></td>
+			</tr>
+		<%		
+		end
+	end
+		%>
+		
+</table>
+		<% if ((current_player.admin?) && (params[:id] == current_player.id.to_s)) %>
+		<p>
+		<h4>Admin Functions</h4>
+		<%= link_to "Edit a result", :controller => 'matches', :action => 'index' %><br />
+		<%= link_to "Edit a league", :controller => 'playerdivs', :action => 'index' %><br />
+		<%= link_to "Edit a player", :controller => 'players', :action => 'index' %><br />
+		<%= link_to "Edit a ranking", :controller => 'rankings', :action => 'index' %><br />
+		<%= link_to "Create a new season", :controller => 'seasons', :action => 'index' %><br />
+		<%= link_to "Create a new division", :controller => 'divisions', :action => 'index' %><br />
+		</p>
+		<% end %>
+
+<% #if Ranking.where(:player_id => params[:id]).count > 2 %>	
+<h4>Ranking Graph</h4>
+<% 
+#rank = Array.new
+#Ranking.where(:player_id => params[:id]).each do |r|
+#	rank << r.score
+#end 
+%>
+<% #g = Gruff::Line.new("700x350")
+#g.hide_title = true
+#g.hide_legend = true
+#g.hide_dots = true
+#g.data("Score", rank) 
+
+#g.write('public/ranking_graph.png')
+%>
+
+<!--<img src="/ranking_graph.png" border="0">-->
+<% #end %>

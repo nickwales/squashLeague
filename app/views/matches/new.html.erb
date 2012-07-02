@@ -1,0 +1,15 @@
+<h1>New match</h1>
+<p id="notice"><%= notice %></p>
+<%
+# Get current playerdiv by id
+def get_playerdiv()
+  playerdiv = Playerdiv.where(:player_id => current_player).last
+  return playerdiv
+end
+%>
+
+In case of a walkover give the player who couldn't make it 'W/O' and yourself 3.
+
+<%= render 'form' %>
+
+<%= link_to 'Back', matches_path %>
