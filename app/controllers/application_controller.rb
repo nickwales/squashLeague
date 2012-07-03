@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
         p2 = Elo::Player.new(:rating => Ranking.where(:player_id => loser).last.score)
       end
       
-      elo_scores = [p1,p2]
+      elo_scores = [p1.rating,p2.rating]
       return elo_scores
   end 
 
