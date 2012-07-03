@@ -70,6 +70,10 @@ class MatchesController < ApplicationController
       elo_scores = update_elo_score(params['match']['results_attributes']['1']['player_id'],params['match']['results_attributes']['0']['player_id']) 
       params['match']['rankings_attributes']['1']['score'] = elo_scores.first     
       params['match']['rankings_attributes']['0']['score'] = elo_scores.last
+    else
+      elo_scores = dont_update_elo_score(params['match']['results_attributes']['0']['player_id'],params['match']['results_attributes']['1']['player_id']) 
+      params['match']['rankings_attributes']['0']['score'] = elo_scores.first     
+      params['match']['rankings_attributes']['1']['score'] = elo_scores.last      
     end
     
 
