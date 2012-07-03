@@ -14,6 +14,10 @@ gem 'rmagick', :require => 'RMagick'
 gem 'gruff'
 gem 'elo'
 
+gem 'execjs'
+gem 'therubyracer'
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
