@@ -449,7 +449,7 @@ table.results_box td {
 	border-bottom: 1px solid white;
 	padding: 2px;
 	background-color: white;
-	-moz-border-radius: ;
+	-moz-border-radius: 5px;
 }
 
 mainnav {
