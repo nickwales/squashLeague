@@ -3,7 +3,7 @@
 <table class="league">
 	<tr>
 	  <td><%= gravatar_for @player %></td>
-	  <td font-size="13px"><%= @player.name %> <% if params[:id] == current_player.id.to_s %> &nbsp; <%= link_to "edit your details", :controller => "devise/registrations", :action => "edit", :id => params[:id] %><% end %></td>
+	  <td font-size="13px"><%= @player.name %> <% if params[:id] == current_player.id.to_s %> &nbsp; <%= link_to "edit your details",  edit_player_registration_path(@player) %><% end %></td>
 	</tr>
 	<% if params[:id] == current_player.id.to_s 
 		if !current_playerdiv.blank?
