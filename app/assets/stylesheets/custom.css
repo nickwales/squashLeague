@@ -453,7 +453,7 @@ table.results_box td {
 }
 
 mainnav {
-  background-color: black;
+  background-color: #373737;
   padding: 0 0.7em;
   white-space: nowrap;
 }
@@ -507,7 +507,6 @@ html>body #nav ul.licious{
 	top:18px;
 }
 #nav ul.licious a:hover{
-	
 	position:relative;
 	color:#0A82D0;
 	background:none;
@@ -530,7 +529,7 @@ html>body #nav ul.licious{
 	text-decoration:none;
 	color:#D3D3D3;
 	padding:10px 10px 0 10px;
-	background:#222;
+	background:#373737;
 	text-shadow:none;
 }
 #nav{
