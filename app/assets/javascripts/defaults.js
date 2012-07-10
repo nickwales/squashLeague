@@ -5458,7 +5458,7 @@ var dropliciousMenu = Class.create({
 	// Properties
 	showingUpDuration: 0.3,
 	hidingDuration: 0.1,
-	hideDelay: 0,
+	hideDelay: 1,
 
 	initialize: function(){
 		
