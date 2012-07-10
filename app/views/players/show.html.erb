@@ -131,6 +131,8 @@ players.each do |player| %>
 		<% if ((current_player.admin?) && (params[:id] == current_player.id.to_s)) %>
 		<p>
 		<h4>Admin Functions</h4>
+		
+		<%= link_to "Admin Site", rails_admin_path %><br />
 		<%= link_to "Edit a result", :controller => 'matches', :action => 'index' %><br />
 		<%= link_to "Edit a league", :controller => 'playerdivs', :action => 'index' %><br />
 		<%= link_to "Edit a player", :controller => 'players', :action => 'index' %><br />
@@ -140,22 +142,28 @@ players.each do |player| %>
 		</p>
 		<% end %>
 
-<% #if Ranking.where(:player_id => params[:id]).count > 2 %>	
+<% if Ranking.where(:player_id => params[:id]).count > 2 %>	
 <h4>Ranking Graph</h4>
 <% 
-#rank = Array.new
-#Ranking.where(:player_id => params[:id]).each do |r|
-#	rank << r.score
-#end 
+rank = Array.new
+Ranking.where(:player_id => params[:id]).each do |r|
+	rank << r.score
+end 
 %>
-<% #g = Gruff::Line.new("700x350")
-#g.hide_title = true
-#g.hide_legend = true
-#g.hide_dots = true
-#g.data("Score", rank) 
+<% g = Gruff::Line.new("700x350")
+g.hide_title = true
+g.hide_legend = true
+g.hide_dots = true
+g.data("Score", rank) 
+#g.theme = {   # Declare a custom theme
+#  :colors => %w(orange purple green white red #cccccc), # colors can be described on hex values (#0f0f0f)
+#  :marker_color => 'grey', # The horizontal lines color
+ # :background_colors => %w(grey darkgrey) # you can use instead: :background_image => ‘some_image.png’
+#}
+#g.render_transparent_background = true
 
-#g.write('public/ranking_graph.png')
+g.write('public/ranking_graph.png')
 %>
 
-<!--<img src="/ranking_graph.png" border="0">-->
-<% #end %>
+<img src="/ranking_graph.png" border="0">
+<% end %>
