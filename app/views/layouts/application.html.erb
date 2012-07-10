@@ -6,8 +6,8 @@
     <%= render 'layouts/stylesheets' %>
 	<%= javascript_include_tag :defaults %>
 	
-<% #if RAILS_ENV == 'production' %>
-<!--	<script type="text/javascript">
+<% if Rails.env == 'production' %>
+	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-20394306-2']);
@@ -20,7 +20,7 @@
 	  })();
 
 	</script> -->
-<% #end %>	
+<% end %>	
   </head>
   <body>
 	<div class="toolbar"> 
@@ -30,32 +30,29 @@
 		<div class="toolbar_right">
 			<ul class="navigation">
 				<ul id="nav">
-					<li><%= link_to "Home", root_path %></li>
-					<li>
-						<%= link_to "Leagues", { :controller => 'pages', :action => 'league' }, :class => 'drops' -%>
-						<%# link_to "Leagues", league_path %>
-
-						<ul class="licious" id="box_one" style="display:none;">
-							<li><%= link_to "TomJohn", :controller => "pages", :action => "league", :page => 1 %></li>
-							<li><%= link_to "Gold 1-5", :controller => "pages", :action => "league", :page => 2 %></li>
-							<li><%= link_to "Gold 6-10", :controller => "pages", :action => "league", :page => 3 %></li>
-							<li><%= link_to "Silver 1-5", :controller => "pages", :action => "league", :page => 4 %></li>
-							<li><%= link_to "Silver 6-10", :controller => "pages", :action => "league", :page => 5 %></li>										
-							<li><%= link_to "Bronze", :controller => "pages", :action => "league", :page => 6 %></li>										
-						</ul>
-					</li>
-					<li><%= link_to "Ranking", rank_path %></li>
-					<li><%= link_to "About", about_path %></li>
-					<li><%= link_to "Contact", contact_path %></li>
-					<% if signed_in? %>
-						<li><%= link_to "Players", players_path %></li>
-						<li><%= link_to current_player.email, current_player %></li>
-						<li><%= link_to "Sign out", destroy_player_session_path, :method => 'delete' %></li>
-					<% else %>
-						<li><%= link_to "Sign in", new_player_session_path %></li>
-					<% end %>
-				</ul>
-
+                   <li><%= link_to "Home", root_path %></li>
+                   <li>
+                           <%= link_to "Leagues", league_path, :class => 'drops' %>
+                           <ul class="licious" id="box_one" style="display:none;">
+                                   <li><%= link_to "TomJohn", league_path(:page => 1) %></li>
+                                   <li><%= link_to "Gold 1-5", league_path(:page => 2) %></li>
+                                   <li><%= link_to "Gold 6-10", league_path(:page => 3) %></li>
+                                   <li><%= link_to "Silver 1-5", league_path(:page => 4) %></li>
+                                   <li><%= link_to "Silver 6-10", league_path(:page => 5) %></li>
+                                   <li><%= link_to "Bronze 1-3", league_path(:page => 6) %></li>
+                           </ul>
+                   </li>
+                   <li><%= link_to "Ranking", rank_path %></li>
+                   <li><%= link_to "About", about_path %></li>
+                   <li><%= link_to "Contact", contact_path %></li>
+                   <% if signed_in? %>
+                           <li><%= link_to "Players", players_path %></li>
+                           <li><%= link_to current_player.email, current_player %></li>
+                           <li><%= link_to "Sign out", destroy_player_session_path, :method => 'delete' %></li>
+                   <% else %>
+                           <li><%= link_to "Sign in", new_player_session_path %></li>
+                   <% end %>
+           </ul>
 		</div>
 	</div>
 
@@ -91,16 +88,17 @@
 					r = Result.where(:match_id => j)
 					if (r[0][:score] != -1) and (r[1][:score] != -1) %>
 					<tr class="patch_style">
-						<td align="left"><%= user_by_id(r[0][:user_id]).name %></td>
+						<td align="left"><%= player_by_id(r[0][:player_id]).name %></td>
 						<td align="left"><%= r[0][:score] %></td>
 						<td align="left"> - </td>
 						<td><%= r[1][:score] %></td>
-						<td><%= user_by_id(r[1][:user_id]).name %></td>
+						<td><%= player_by_id(r[1][:player_id]).name %></td>
 					</tr>	
 				<% end 
 				end %>
-			</table>
-		</div>
+				</table>
+				</div>
+
 
 		<div class="patch">
 		<span class="patch_header">Team Matches</span><br>
@@ -115,7 +113,7 @@
 				search.to("wimbledonsquash").per_page(5).each do |r| %>
 
 
-						<span class="tweeter"><%=	"#{r.from_user}:" %></span><br /> <span class="patch_style"><%= "#{r.text}" %></span><br />
+						<span class="tweeter"><%=	"#{r.from_player}:" %></span><br /> <span class="patch_style"><%= "#{r.text}" %></span><br />
 
 				<% end 
 				search.clear %>
