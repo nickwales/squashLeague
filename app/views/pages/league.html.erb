@@ -26,7 +26,9 @@ previous_season = seasons - 1 %>
 <br /><br />
 <%
 # Sort them, paginate them. 
-sorted_and_paginated_divisions = divisions #.paginate(:page => params[:page], :per_page => 5)
+#sorted_and_paginated_divisions = divisions #.paginate(:page => params[:page], :per_page => 5)
+sorted_and_paginated_divisions = Kaminari.paginate_array(divisions).page(params[:page]).per(5)
+
 # Loop through the leagues and tabulate them
 sorted_and_paginated_divisions.each_with_index do |l,index|
 l = show_league(l,1) 
@@ -65,6 +67,6 @@ l.each do |balls|
 
 
 <% 	end  %>
-
+<%= paginate sorted_and_paginated_divisions %>
 
 <%# will_paginate sorted_and_paginated_divisions %>

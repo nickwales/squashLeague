@@ -7,10 +7,10 @@
   <%= f.email_field :email, :value => Player.find(params[:format]).email %></div>
 
   <div><%= f.label :phone %><br />
-  <%= f.email_field :phone, :value => Player.find(params[:format]).phone %></div>
+  <%= f.phone_field :phone, :value => Player.find(params[:format]).phone %></div>
 
   <div><%= f.label :twitter %><br />
-  <%= f.email_field :twitter, :value => Player.find(params[:format]).twitter %></div>
+  <%= f.twitter_field :twitter, :value => Player.find(params[:format]).twitter %></div>
 
   <div><%= f.label :password %> <i>If you want to update your password do it here:</i><br />
   <%= f.password_field :password, :autocomplete => "off" %></div>

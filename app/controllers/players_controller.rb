@@ -1,7 +1,8 @@
 class PlayersController < ApplicationController
 
   def index
-    @players = Player.paginate(:page => params[:page]).order('name ASC')
+    #@players = Player.paginate(:page => params[:page]).order('name ASC')
+    @players = Player.order(:name).page params[:page]
   end
 
 	def show

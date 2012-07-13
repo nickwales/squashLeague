@@ -3,5 +3,3 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
 SquashLeague::Application.initialize!
-
-require 'will_paginate'
