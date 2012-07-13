@@ -70,7 +70,7 @@ class MatchesController < ApplicationController
       elo_scores = update_elo_score(params['match']['results_attributes']['1']['player_id'],params['match']['results_attributes']['0']['player_id']) 
       params['match']['rankings_attributes']['1']['score'] = elo_scores.first     
       params['match']['rankings_attributes']['0']['score'] = elo_scores.last
-    else
+    elsif
       elo_scores = dont_update_elo_score(params['match']['results_attributes']['0']['player_id'],params['match']['results_attributes']['1']['player_id']) 
       params['match']['rankings_attributes']['0']['score'] = elo_scores.first     
       params['match']['rankings_attributes']['1']['score'] = elo_scores.last      
@@ -81,7 +81,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
      if @match.save
        if Rails.env.production?
-         player1_info = player.find(player1)
+         player1_info = Player.find(player1)
          if player1_info.twitter.blank?
            player1_name = player1_info.name
          else 
@@ -92,7 +92,7 @@ class MatchesController < ApplicationController
             end
          end
 
-         player2_info = player.find(player2)
+         player2_info = Player.find(player2)
          if player2_info.twitter.blank?
            player2_name = player2_info.name
          else 
@@ -106,7 +106,8 @@ class MatchesController < ApplicationController
          if !player1_score == "-1" or !player2_score == "-1"
            tweet_result(player1_name,player1_score,player2_name,player2_score)
          end
-        ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
+
+ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
          end    
 
         format.html { redirect_to(@match, :notice => 'Match was successfully created.') }
