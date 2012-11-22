@@ -3,7 +3,7 @@ class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.xml
   def index
-    @matches = Match.paginate(:page => params[:page])
+    @matches = Match.page params[:page]
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @matches }
