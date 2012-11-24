@@ -26,11 +26,8 @@ class MatchesController < ApplicationController
 
   # GET /matches/new
   # GET /matches/new.xml
-  def new  
-    #@unplayed = other_playerdiv_players_array(get_playerdiv().division_id,current_player.id)
-    #@unplayed = unplayed_playerdiv_players(get_playerdiv().id,current_player.id)
-    #@playerdiv_players = other_playerdiv_player(get_playerdiv.division_id,current_player.id) 
-    @unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id)
+  def new   
+    @unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id) # Get the unplayed players from current division.
     
     @players = 
     @match = Match.new
@@ -53,6 +50,28 @@ class MatchesController < ApplicationController
   # POST /matches
   # POST /matches.xml
   def create
+    
+    def dev_twitter_auth()
+       Twitter.configure do |config|
+         config.consumer_key = "1XjVDsxhid6RGC2L87iOw"
+         config.consumer_secret = "3D9GIbIEfiKqSMDzHTunAPJ0Cb3jGMpxTGJ5SBKXcZQ"
+         config.oauth_token = "167934744-nQHj7SI2fmR9kKgp0xPgqxKThzo3b8E5Zm57LtXh"
+         config.oauth_token_secret = "w151Vhz4TQ5cMaCGEeJPZyeHfw13X4PgvIek4UXhzk"
+       end
+     end
+     def dev_tweet_result(player1, player1_score, player2, player2_score)
+       dev_twitter_auth()
+       # Create the tweet
+
+       tweet = ["Result just in, ", player1, " ", player1_score, " - ", player2_score, " ",player2].join("")
+       # Initialize your Twitter client
+       client = Twitter::Client.new
+       # Post a status update
+       client.update(tweet)
+     end
+    
+    
+    
     #@unplayed = other_playerdiv_players_array(get_playerdiv().division_id,current_player.id)
     @unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id)
     #We need to edit the params here a bit!
@@ -111,22 +130,27 @@ class MatchesController < ApplicationController
              end
            end
          
-           if !player1_score == "-1" or !player2_score == "-1"
-             tweet_result(player1_name,player1_score,player2_name,player2_score)
-           end
+          if Rails.env.production?  
+             if !player1_score == "-1" or !player2_score == "-1"
+               tweet_result(player1_name,player1_score,player2_name,player2_score)
+             end
+             ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
+          else
+            if !player1_score == "-1" or !player2_score == "-1"
+              dev_tweet_result(player1_name,player1_score,player2_name,player2_score)
+            end
+          end
+        end    
 
-           ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
-           end    
-
-          format.html { redirect_to(@match, :notice => "Result has been successfully added") }
-          format.xml  { render :xml => @match, :status => :created, :location => @match }      
-        else
-          format.html { redirect_to new_match_path, :alert => 'You did not enter any scores' }
-          format.xml  { render :xml => @match.errors, :status => :unprocessable_entity }
-        end
+        format.html { redirect_to(@match, :notice => "Result has been successfully added") }
+        format.xml  { render :xml => @match, :status => :created, :location => @match }      
+      else
+        format.html { redirect_to new_match_path, :alert => 'You did not enter any scores' }
+        format.xml  { render :xml => @match.errors, :status => :unprocessable_entity }
       end
     end
   end
+end
 
   # PUT /matches/1
   # PUT /matches/1.xml

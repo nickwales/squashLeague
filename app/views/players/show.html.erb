@@ -10,11 +10,14 @@
 		
 		%>
 	
+	<!-- Show the add a result link if there are unplayed matches.-->
 	<tr>
 		<td></td>
-		
-		<td><%= link_to "Add a result", :controller => 'matches', :action => 'new' %></td>	
-				
+		<% if @unplayed.empty? %>
+			<td>All results have been entered this session.</td>	
+		<% else %>
+			<td><%= link_to "Add a result", :controller => 'matches', :action => 'new' %></td>	
+		<% end %>		
 	</tr>
 
 	<% end
