@@ -74,26 +74,23 @@ module ApplicationHelper
      return players
   end
 
-
-## This is FUCKED, needs fixing ASAP. Its not taking everything into account it seems.
-
   ## Gets matches from a division
-  def get_division_matches_played(division,player_id)
+  def get_division_matches_played(division,player_ident)
     results = Match.where(:playerdiv_id => division)     #Get the users result from the current division
 
     @oppo_result = Array.new     #Get the opposition names in an active record relation
     results.each do |m|
-      @oppo_result << Result.where(:match_id => m).where('player_id != ?', player_id)
+      @oppo_result << Result.where(:match_id => m).where('player_id != ?', player_ident)
     end
+    #return @oppo_result
     #Get the player_id out of the relation for each.
     @opposition = Array.new
     unless @oppo_result.blank?
-    else
       @oppo_result.each do |o|
         @opposition << o.first.player_id
       end
     end
-    return @opposition
+     return @opposition
   end
 
   def unplayed_playerdiv_players(division,player_id)    
