@@ -142,22 +142,23 @@ players.each do |player| %>
 		</p>
 		<% end %>
 
-<% if Ranking.where(:player_id => params[:id]).count > 2 %>	
-<h4>Ranking Graph</h4>
-<% 
-rank = Array.new
-Ranking.where(:player_id => params[:id]).each do |r|
-	rank << r.score
-end 
-%>
-<% g = Gruff::Line.new("700x350")
-g.hide_title = true
-g.hide_legend = true
-g.hide_dots = true
-g.data("Score", rank) 
+		<% if Ranking.where(:player_id => params[:id]).count > 2 %>	
+		<h4>Ranking Graph</h4>
+		<% 
+		rank = Array.new
+		Ranking.where(:player_id => params[:id]).each do |r|
+			rank << r.score
+		end 
+		%>
+		<% g = Gruff::Line.new("700x350")
+		g.hide_title = true
+		g.hide_legend = true
+		g.hide_dots = true
+		g.data("Score", rank) 
 
-g.write('public/ranking_graph.png')
-%>
+		g.write('public/ranking_graph.png')
+		%>
 
-<img src="/ranking_graph.png" border="0">
-<% end %>
+		<img src="/ranking_graph.png" border="0">
+		<% end %>
+
