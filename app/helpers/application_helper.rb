@@ -79,26 +79,20 @@ module ApplicationHelper
 
   ## Gets matches from a division
   def get_division_matches_played(division,player_id)
-    #Get the users result from the current division
-    #results = Result.joins(:match).where(:matches => {:playerdiv_id => division}).where(:player_id => player_id)
-    results = Match.where(:playerdiv_id => division)
-   # matches = Array.new
-    #results.each do |r|
-    #  matches << r.match_id
-  #end 
-    #Get the opposition names in an active record relation
-    @oppo_result = Array.new
+    results = Match.where(:playerdiv_id => division)     #Get the users result from the current division
+
+    @oppo_result = Array.new     #Get the opposition names in an active record relation
     results.each do |m|
       @oppo_result << Result.where(:match_id => m).where('player_id != ?', player_id)
     end
     #Get the player_id out of the relation for each.
     @opposition = Array.new
     unless @oppo_result.blank?
+    else
       @oppo_result.each do |o|
         @opposition << o.first.player_id
       end
     end
-#    @opposition
     return @opposition
   end
 
@@ -187,7 +181,8 @@ module ApplicationHelper
        config.oauth_token_secret = "S1Y9hkH9Sx9HOvXHzFDpceX1JyNZjKveaWmUl0QaMQ"
      end
    end
-   def tweet_result(player1, player1_score, player2, player2_score)
+   
+  def tweet_result(player1, player1_score, player2, player2_score)
      twitter_auth()
      # Create the tweet
 

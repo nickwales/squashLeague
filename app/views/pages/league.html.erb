@@ -1,12 +1,13 @@
 
 <%	#Get the divisions for the season, run them through pagination, and loop through them.
 seasons = params[:season]
-unless seasons.blank?
-	divisions = division_ids(seasons)
-	seasons = seasons.to_i
-else 
+if seasons.blank?
 	seasons = current_season()
 	divisions = division_ids(seasons)
+else 
+
+	divisions = division_ids(seasons)
+	seasons = seasons.to_i
 end
 
 next_season = seasons + 1

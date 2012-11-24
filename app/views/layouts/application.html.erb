@@ -108,16 +108,12 @@
 		</div>
 	
 		<div class="patch">
-		<span class="patch_header">Latest Tweets @wimbledonsquash</span><br>
-		<% search = Twitter::Search.new 
-				search.to("wimbledonsquash").per_page(5).each do |r| %>
-
-
-						<span class="tweeter"><%=	"#{r.from_player}:" %></span><br /> <span class="patch_style"><%= "#{r.text}" %></span><br />
-
-				<% end 
-				search.clear %>
-
+			<span class="patch_header">Latest Tweets @wimbledonsquash</span><br>
+			<% twitter_auth() %>
+			<% search = Twitter.search("to:wimbledonsquash", :count => 3, :result_type => "recent").results.map do |status| %>
+				<span class="tweeter"><%=	"#{status.from_user}:" %></span><br /> 
+				<span class="patch_style"><%= "#{status.text}" %></span><br />
+			<% end %>
 		</div>
 
 		<div class="patch">
