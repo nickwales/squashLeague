@@ -26,11 +26,12 @@ class MatchesController < ApplicationController
 
   # GET /matches/new
   # GET /matches/new.xml
-  def new
-    @unplayed = other_playerdiv_players_array(get_playerdiv().division_id,current_player.id)
-      #@unplayed = unplayed_playerdiv_players(get_playerdiv().id,current_player.id)
-      #@unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id)
-      #@playerdiv_players = other_playerdiv_player(get_playerdiv.division_id,current_player.id) 
+  def new  
+    #@unplayed = other_playerdiv_players_array(get_playerdiv().division_id,current_player.id)
+    #@unplayed = unplayed_playerdiv_players(get_playerdiv().id,current_player.id)
+    #@playerdiv_players = other_playerdiv_player(get_playerdiv.division_id,current_player.id) 
+    @unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id)
+    
     @players = 
     @match = Match.new
     1.times { @match.results.build }
@@ -52,7 +53,8 @@ class MatchesController < ApplicationController
   # POST /matches
   # POST /matches.xml
   def create
-    @unplayed = other_playerdiv_players_array(get_playerdiv().division_id,current_player.id)
+    #@unplayed = other_playerdiv_players_array(get_playerdiv().division_id,current_player.id)
+    @unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id)
     #We need to edit the params here a bit!
     #Fix players 2s elo player_id, easypeasy.
     params['match']['rankings_attributes']['1']['player_id'] = params['match']['results_attributes']['1']['player_id']
@@ -75,47 +77,53 @@ class MatchesController < ApplicationController
       params['match']['rankings_attributes']['0']['score'] = elo_scores.first     
       params['match']['rankings_attributes']['1']['score'] = elo_scores.last      
     end
-    
 
-    @match = Match.new(params[:match])
-    respond_to do |format|
-     if @match.save
-       if Rails.env.production?
-         player1_info = Player.find(player1)
-         if player1_info.twitter.blank?
-           player1_name = player1_info.name
-         else 
-           if player1_info.twitter.include? "@"
-              player1_name = player1_info.twitter
-            else 
-              player1_name = ["@",player1_info.twitter].join("")
-            end
-         end
-
-         player2_info = Player.find(player2)
-         if player2_info.twitter.blank?
-           player2_name = player2_info.name
-         else 
-           if player2_info.twitter.include? "@"
-             player2_name = player2_info.twitter
+    ## We want to break out and return to the new match page with a warning if the score is 3-3.
+    if player1_score == "3" && player2_score == "3"
+      respond_to do |format|
+        format.html { redirect_to new_match_path, :alert => '3-3 is not a valid score' }
+      end
+    #  format.xml  { render :xml => @match.errors, :status => :unprocessable_entity }
+    else      
+      @match = Match.new(params[:match])
+      respond_to do |format|
+       if @match.save
+         if Rails.env.production?
+           player1_info = Player.find(player1)
+           if player1_info.twitter.blank?
+             player1_name = player1_info.name
            else 
-             player2_name = ["@",player2_info.twitter].join("")
+             if player1_info.twitter.include? "@"
+                player1_name = player1_info.twitter
+              else 
+                player1_name = ["@",player1_info.twitter].join("")
+              end
            end
-         end
+
+           player2_info = Player.find(player2)
+           if player2_info.twitter.blank?
+             player2_name = player2_info.name
+           else 
+             if player2_info.twitter.include? "@"
+               player2_name = player2_info.twitter
+             else 
+               player2_name = ["@",player2_info.twitter].join("")
+             end
+           end
          
-         if !player1_score == "-1" or !player2_score == "-1"
-           tweet_result(player1_name,player1_score,player2_name,player2_score)
-         end
+           if !player1_score == "-1" or !player2_score == "-1"
+             tweet_result(player1_name,player1_score,player2_name,player2_score)
+           end
 
-ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
-         end    
+           ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
+           end    
 
-        format.html { redirect_to(@match, :notice => 'Match was successfully created.') }
-        format.xml  { render :xml => @match, :status => :created, :location => @match }      
-      else
-#        format.html { render :action => "new"}
-        format.html { redirect_to new_match_path, :alert => 'You did not enter any scores' }
-        format.xml  { render :xml => @match.errors, :status => :unprocessable_entity }
+          format.html { redirect_to(@match, :notice => "Result has been successfully added") }
+          format.xml  { render :xml => @match, :status => :created, :location => @match }      
+        else
+          format.html { redirect_to new_match_path, :alert => 'You did not enter any scores' }
+          format.xml  { render :xml => @match.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end

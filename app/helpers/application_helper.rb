@@ -62,7 +62,15 @@ module ApplicationHelper
   end
 
 
-
+  # Gets everyone apart from the chosen player, and puts it in an array.
+  def other_playerdiv_players_array(division,player_id)
+    players = Array.new
+    results = Player.joins(:playerdivs).where(:playerdivs => {:division_id => division}).where("players.id != ?", player_id)
+    results.each do |r|
+      players << r.id
+    end
+    return players.sort!
+  end
 
   ## Gets matches from a division
   def get_division_matches_played(division,player_id)
@@ -87,21 +95,20 @@ module ApplicationHelper
         @opposition << o.player_id
       end
     end
-    return @opposition
+    return @opposition.sort!
 
   end
 
-  def unplayed_playerdiv_players(division,player_id)
-    #Get everyone who isn't us
-    others = other_playerdiv_users_array(division,player_id)
-    #Get the ones we've played against
-    played = get_division_matches_played(division,player_id)
-    #Subtract one from the other
-    unplayed = others - played
-    #Put it in a hash and grab the name.
-    unplayedWithName = Hash.new
+  def unplayed_playerdiv_players(division,player_id)    
+    others = other_playerdiv_players_array(division,player_id) #Get everyone who isn't us    
+    played = get_division_matches_played(division,player_id) #Get the ones we've played against    
+    unplayed = others - played #Subtract one from the other
+
+    unplayedWithName = Hash.new #Put it in a hash and grab the name.
+
     unplayed.each do |u|
-      unplayedWithName[user_by_id(u).name] = u
+      player_name = Player.find(u).name
+      unplayedWithName[player_name] = u
     end
     return unplayedWithName
   end
@@ -114,7 +121,7 @@ module ApplicationHelper
     results.each do |r|
       players[r.name] = r.id
     end
-    return users
+    return players
   end  
 
   # Get current playerdiv by id
@@ -134,7 +141,7 @@ module ApplicationHelper
   def player_by_id(id)
       player = Player.find(id)
       return player
-    end
+  end
 
 
   def current_season()

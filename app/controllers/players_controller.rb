@@ -6,6 +6,7 @@ class PlayersController < ApplicationController
   end
 
 	def show
+	  @unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id)
 	  @player = Player.find(params[:id])	  
 	  if !Playerdiv.where(:player_id => params[:id]).empty?
       @currentDiv = Playerdiv.where(:player_id => params[:id]).last

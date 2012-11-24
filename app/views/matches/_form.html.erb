@@ -15,9 +15,7 @@
 	<!-- Get the division_id for current logged in player -->
   	<% current_playerdiv = get_playerdiv %>
     <%= f.hidden_field :playerdiv_id, :value => current_playerdiv.division_id %><br />
-	<%# playerdiv_players = other_playerdiv_players(current_playerdiv.division_id,current_player.id) %>
-	<% playerdiv_players = @unplayed %>
-
+	
 	<!-- The controller makes this happen twice -->
 	<%= f.fields_for :results do |result_form| %>
 
@@ -40,18 +38,20 @@
 		<%= ranking_form.hidden_field :match_id, :value => :match_id %>
 	<% end %>
 	vs<br /><br />
+
+	<!-- Get player 2 -->
 		<%= f.fields_for :results do |result_form| %>
 
  
 		<%= result_form.select :player_id, options_for_select(@unplayed) %>
 
- 		<!-- Get the score -->
+ 	<!-- Get the score -->
 
 		<%= result_form.select :score, options_for_select([["Game Score", ""], ["0", "0"], ["1", "1"], ["2", "2"], ["3", "3"],["W/O","-1"]]) %><br />
 
 		<%= result_form.hidden_field :active, :value => 1 %>
 	<% end %>
-<!-- Ranking points for player 2 -->
+	<!-- Ranking points for player 2 -->
 	<%= f.fields_for :rankings do |ranking_form| %>
 		
 		<%= ranking_form.hidden_field :score %><br />
