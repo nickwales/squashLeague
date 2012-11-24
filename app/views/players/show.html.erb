@@ -142,6 +142,8 @@ players.each do |player| %>
 		</p>
 		<% end %>
 
+<% if Rails.env.production? %>
+
 		<% if Ranking.where(:player_id => params[:id]).count > 2 %>	
 		<h4>Ranking Graph</h4>
 		<% 
@@ -162,3 +164,4 @@ players.each do |player| %>
 		<img src="/ranking_graph.png" border="0">
 		<% end %>
 
+<% end %>
