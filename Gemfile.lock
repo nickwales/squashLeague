@@ -162,7 +162,6 @@ GEM
       multi_json (>= 1.0.2)
     warden (1.1.1)
       rack (>= 1.0)
-    will_paginate (3.0.3)
 
 PLATFORMS
   ruby
@@ -178,6 +177,7 @@ DEPENDENCIES
   gruff
   jquery-rails
   json
+  kaminari
   rails (= 3.2.6)
   rails_admin
   rmagick
@@ -186,4 +186,3 @@ DEPENDENCIES
   therubyracer
   twitter (= 1.7.2)
   uglifier (>= 1.0.3)
-  will_paginate (= 3.0.3)
