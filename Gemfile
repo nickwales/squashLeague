@@ -3,19 +3,15 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.6'
 gem 'devise', '2.1.0'
 gem 'kaminari'
-#gem 'will_paginate', '3.0.3'
-#require 'will_paginate/array'
 gem 'gravatar_image_tag'
-#gem 'blogit', '0.4.8'
-#gem 'redcarpet', '2.0.1'
 gem 'rails_admin'
 gem 'fastercsv'
 gem 'cancan'
 gem 'twitter', '4.3.0'
+gem 'oauth'
 gem 'rmagick', :require => 'RMagick'
 gem 'gruff'
 gem 'elo'
-
 gem 'execjs'
 gem 'therubyracer'
 
@@ -24,7 +20,6 @@ gem 'therubyracer'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
 gem 'json'
 
 # Gems used only for assets and not required
