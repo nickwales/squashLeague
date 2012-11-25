@@ -167,30 +167,24 @@ module ApplicationHelper
     return div
   end
 
-#  def twitter_auth()
-#     Twitter.configure do |config|
-    #   if Rails.env.production?
-    #     config.consumer_key = "MmLpCfZryJpziDQrP6v2fA"
-    #     config.consumer_secret = "r1JnVOv0fqpKWf85PYy7NqIeujLlso7Rz77dMBz0GJM"
-    #     config.oauth_token = "304956678-t1zBhgd9WPsLt2iPziMtMJUky7N67At8sBJOLVtE"
-    #     config.oauth_token_secret = "S1Y9hkH9Sx9HOvXHzFDpceX1JyNZjKveaWmUl0QaMQ"
-    #   else
-#         config.consumer_key = "1XjVDsxhid6RGC2L87iOw"
-#         config.consumer_secret = "3D9GIbIEfiKqSMDzHTunAPJ0Cb3jGMpxTGJ5SBKXcZQ"
-#         config.oauth_token = "167934744-nQHj7SI2fmR9kKgp0xPgqxKThzo3b8E5Zm57LtXh"
-#         config.oauth_token_secret = "w151Vhz4TQ5cMaCGEeJPZyeHfw13X4PgvIek4UXhzk"
-    #   end
-#     end
-#   end
+  def twitter_auth()
+     Twitter.configure do |config|
+       if Rails.env.production?
+         config.consumer_key = "MmLpCfZryJpziDQrP6v2fA"
+         config.consumer_secret = "r1JnVOv0fqpKWf85PYy7NqIeujLlso7Rz77dMBz0GJM"
+         config.oauth_token = "304956678-t1zBhgd9WPsLt2iPziMtMJUky7N67At8sBJOLVtE"
+         config.oauth_token_secret = "S1Y9hkH9Sx9HOvXHzFDpceX1JyNZjKveaWmUl0QaMQ"
+       else
+         config.consumer_key = "1XjVDsxhid6RGC2L87iOw"
+         config.consumer_secret = "3D9GIbIEfiKqSMDzHTunAPJ0Cb3jGMpxTGJ5SBKXcZQ"
+         config.oauth_token = "167934744-nQHj7SI2fmR9kKgp0xPgqxKThzo3b8E5Zm57LtXh"
+         config.oauth_token_secret = "w151Vhz4TQ5cMaCGEeJPZyeHfw13X4PgvIek4UXhzk"
+       end
+     end
+   end
    
 #  def tweet_result(player1, player1_score, player2, player2_score)
-    #twitter_auth()
-#    Twitter.configure do |config|
-#      config.consumer_key = "1XjVDsxhid6RGC2L87iOw"
-#      config.consumer_secret = "3D9GIbIEfiKqSMDzHTunAPJ0Cb3jGMpxTGJ5SBKXcZQ"
-#      config.oauth_token = "167934744-nQHj7SI2fmR9kKgp0xPgqxKThzo3b8E5Zm57LtXh"
-#      config.oauth_token_secret = "w151Vhz4TQ5cMaCGEeJPZyeHfw13X4PgvIek4UXhzk"
-#    end
+   
      # Create the tweet
 
 #     tweet = ["Result just in, ", player1, " ", player1_score, " - ", player2_score, " ",player2].join("")
@@ -201,8 +195,6 @@ module ApplicationHelper
 #  end
 
 
-
-
   def played_before(playerdiv,user1,user2)
     a = (playerdiv.to_s + user1.to_s + user2.to_s)
     if Match.where(:playerdiv => playerdiv).index == a.to_i
@@ -211,5 +203,3 @@ module ApplicationHelper
     return false
   end
 end
-
-
