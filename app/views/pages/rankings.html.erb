@@ -1,16 +1,3 @@
-<%
- def all_player_matches(player)
- result = Match.joins(:results).where(:results => {:player_id => player})
- @player_matches = Array.new
- result.each do |m|
-   @player_matches << m.id
- end
- return @player_matches
-end
-
-
-%>
-
 <table class="league">
 		<h3>Rankings</h3>
 		<tr>

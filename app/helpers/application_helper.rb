@@ -29,9 +29,13 @@ module ApplicationHelper
   def match_result(match,player)
     scores = Result.where(:match_id => match)
        score_1 = scores.first
-       score_2 = scores.last
+       score_2 = scores.last         
        if score_1[:player_id] == player
-         if score_1[:score] > score_2[:score]
+         if score_1[:player_id] == "3"
+           result = "won"
+         elsif score_2[:score] == "3"
+           result = "lost"
+         elsif score_1[:score] > score_2[:score]
            result = "won"
          elsif score_1[:score] == score_2[:score]
            result = "drew"       
@@ -39,7 +43,11 @@ module ApplicationHelper
            result = "lost"
            end
         elsif score_2[:player_id] == player
-          if score_2[:score] > score_1[:score]
+          if score_2[:score] == "3"
+            result = "won"
+          elsif score_1[:score] == "3"
+            result = "lost"
+          elsif score_2[:score] > score_1[:score]
             result = "won"
           elsif score_2[:score] == score_1[:score]
             result = "drew"       
