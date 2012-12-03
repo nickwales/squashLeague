@@ -99,18 +99,18 @@
 				</table>
 				</div>
 
-
+		<% if Rails.env.production? %>
 		<div class="patch">
 		<span class="patch_header">Team Matches</span><br>
-		<% if Rails.env.production? %>
+
 			<iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=nickwales.co.uk_fflcvb8r0ojnnkfhoi8h1u2qfo%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" style= "border-width:0" width="300" height="200" frameborder="0" scrolling="no"></iframe>
-		<% end %>
+
 		</div>
-	
+			<% end %>
 		<div class="patch">
 			<span class="patch_header">Latest Tweets @wimbledonsquash</span><br>
 			<% twitter_auth() %>
-			<% search = Twitter.search("to:wimbledonsquash", :count => 3, :result_type => "recent").results.map do |status| %>
+			<% search = Twitter.search("@wimbledonsquash", :count => 5, :result_type => "recent").results.map do |status| %>
 				<span class="tweeter"><%=	"#{status.from_user}:" %></span><br /> 
 				<span class="patch_style"><%= "#{status.text}" %></span><br />
 			<% end %>
