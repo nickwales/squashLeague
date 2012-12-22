@@ -56,12 +56,12 @@ l.each do |balls|
 
 		<%	l.each do |p| %>
 			<tr>
-				<td><% if signed_in? %><%= link_to Player.find(p[:id]).name, :controller => 'players', :action => 'show', :id => p[:id] %><% else %><%= Player.find(p[:id]).name %><% end %></td>
-				<td><%= p[:Played] %></td>
-				<td><%= p[:Won] %></td>
-				<td><%= p[:Lost] %></td>
-				<td><%= p[:Drew] %></td>
-				<td><%= p[:Points] %></td>
+				<td style="text-align: left;"><% if signed_in? %><%= link_to Player.find(p[:id]).name, :controller => 'players', :action => 'show', :id => p[:id] %><% else %><%= Player.find(p[:id]).name %><% end %></td>
+				<td style="text-align: center;"><%= p[:Played] %></td>
+				<td style="text-align: center;"><%= p[:Won] %></td>
+				<td style="text-align: center;"><%= p[:Lost] %></td>
+				<td style="text-align: center;"><%= p[:Drew] %></td>
+				<td style="text-align: center;"><%= p[:Points] %></td>
 			</tr>
 		<% end %>
 		</table>
