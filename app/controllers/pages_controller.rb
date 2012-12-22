@@ -8,11 +8,11 @@ class PagesController < ApplicationController
   end
 
   def about
-  @title = "About"
+    @title = "About"
   end
 
   def help
-  @title = "Help"
+    @title = "Help"
   end
   
   def league
@@ -29,17 +29,23 @@ class PagesController < ApplicationController
     end
   
   def rankings
-      @title = "Rankings"
+    @title = "Rankings"
+
+    def all_player_matches(player)
+      result = Match.joins(:results).where(:results => {:player_id => player})
     end
-
-    
+    rankings2 = Array.new
+  end
     @league_players = Playerdiv.joins(:division).where(:divisions => {:season_id => @season})
-    
     @players = Result.joins(:match).where(:matches => {:playerdiv_id => 1}).where(:results => {:player_id => (params[:article])})
-
   end
   
 
+  def table
+    @title = "Table"
+    @league = 1
+
+  end
   
 
 end

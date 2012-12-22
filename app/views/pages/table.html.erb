@@ -1,0 +1,79 @@
+<%
+   seasons = params[:season]
+   if seasons.blank?
+     seasons = current_season()
+     divisions = division_ids(seasons)
+   else
+     divisions = division_ids(seasons)
+     seasons = seasons.to_i
+   end
+
+   next_season = seasons + 1
+   previous_season = seasons - 1 %>
+
+
+<h3> Season ending <%= Season.find(seasons).end_date.strftime("%d/%m/%Y") %></h3>
+
+<% if seasons == Season.last.id %>
+    <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season %>
+<% elsif seasons == 1 %>
+    <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season %>
+<% else %>
+    <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season %>
+    <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season %>
+<% end %>
+<br/><br/>
+
+<%
+   tables = Kaminari.paginate_array(divisions).page(params[:page]).per(5)
+   tables.each do |t|
+     @results = matches_to_results(t.id)
+%>
+
+    <table class="league">
+      <tr>
+        <td width="150px"></td>
+        <%
+           @results.sort.each do |n|
+        %>
+            <th>
+              <%= Player.find(n[0]).name %>
+            </th>
+        <%
+           end
+        %>
+            <th>Score</th>
+      </tr>
+      <tr>
+        <%
+           @a = 0
+           @results.sort.each do |r|
+             @b = 0 %>
+
+            <td style="text-align: left;" width="150px">
+              <strong><%= Player.find(r[0]).name %></strong>
+            </td>
+            <% @results.sort.each do |r2| %>
+
+                <% if @a == @b %>
+                    <td style="background: #708090; text-align: center;" width="20px"></td>
+                <% elsif r[1][r2[0]].present? && r[1][r2[0]] == -1 %>
+                    <td style="text-align: center;" width="20px">DNP</td>
+                <% elsif r[1][r2[0]].present? %>
+                    <td style="text-align: center;" width="20px"><%= r[1][r2[0]] %></td>
+                <% else %>
+                    <td style="text-align: center;" width="20px"></td>
+                <% end %>
+
+
+            <% @b += 1 %>
+
+            <%  end %>
+            <% @a += 1 %>
+            <td style="background:#708090; color:white; text-align: center;"  width="20px" text-align="right">   <%= r[1][:points]  %> </td>
+            </tr>
+        <% end %>
+        </table>
+<% end %>
+
+<%= paginate tables %>
