@@ -1,23 +1,48 @@
+<%
+   if params[:season].blank?
+     season = current_season()
+   else
+     season = params[:season]
+   end
+%>
+
 <h1>Listing playerdivs</h1>
+
+<% next_season = season.to_i + 1
+   previous_season = season.to_i - 1
+   if season == Season.last.id %>
+    <%= link_to "Previous Season", :controller => "playerdivs", :action => "index", :season => previous_season %>
+<% elsif season == 1 %>
+    <%= link_to "Next Season", :controller => "playerdivs", :action => "index", :season => next_season %>
+<% else %>
+    <%= link_to "Previous Season", :controller => "playerdivs", :action => "index", :season => previous_season %>
+    <%= link_to "Next Season", :controller => "playerdivs", :action => "index", :season => next_season %>
+<% end %>
 
 <table>
   <tr>
     <th>Division</th>
     <th>User</th>
+    <%# if current_player.admin? %>
     <th></th>
     <th></th>
     <th></th>
+    <%# end%>
   </tr>
 
-<% @playerdivs.each do |playerdiv| %>
-  <tr>
-    <td><%= playerdiv.division_id %></td>
-    <td><%= playerdiv.player_id %></td>
-    <td><%= link_to 'Show', playerdiv %></td>
-    <td><%= link_to 'Edit', edit_playerdiv_path(playerdiv) %></td>
-    <td><%= link_to 'Destroy', playerdiv, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <% # Playerdiv.find(:all, :order => "division_id").each do |playerdiv|
+     Playerdiv.joins(:division).where(:divisions => {:season_id => season}).order('playerdivs.division_id ASC').each do |playerdiv|
+#	p.each do |playerdiv| %>
+      <tr>
+        <td><%= Division.find(playerdiv.division_id).name %></td>
+        <td><%= player_by_id(playerdiv.player_id).name %></td>
+        <%# if current_player.admin? %>
+        <td><%= link_to 'Show', playerdiv %></td>
+        <td><%= link_to 'Edit', edit_playerdiv_path(playerdiv) %></td>
+        <td><%= link_to 'Destroy', playerdiv, :confirm => 'Are you sure?', :method => :delete %></td>
+        <%# end%>
+      </tr>
+  <% end %>
 </table>
 
 <br />

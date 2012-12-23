@@ -124,7 +124,9 @@ class MatchesController < ApplicationController
             @twitter.update(tweet)                  
           end
         elsif Rails.env.production?  
-           if player1_score != "-1" or player2_score != "-1"
+           if player1_score == "-1" or player2_score == "-1"
+
+           else
              Twitter.configure do |config|
                 config.consumer_key = "MmLpCfZryJpziDQrP6v2fA"
                 config.consumer_secret = "r1JnVOv0fqpKWf85PYy7NqIeujLlso7Rz77dMBz0GJM"
