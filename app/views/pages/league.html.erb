@@ -24,7 +24,7 @@ previous_season = seasons - 1 %>
         <%= link_to "Next Season", :controller => "pages", :action => "league", :season => next_season %>
 <% end %> 
 
-<br /><br />
+<br />
 <%
 # Sort them, paginate them. 
 #sorted_and_paginated_divisions = divisions #.paginate(:page => params[:page], :per_page => 5)
@@ -44,7 +44,7 @@ l.each do |balls|
 <% end %>
 
 <table class="league">
-		<h3><%= @div_name %></h3>
+		<p><span style="font-size: 14pt;" ><%= @div_name %> - </span> See <%= link_to "table", :controller => "pages", :action => "table", :page => params[:page] %>
 		<tr>
 			<th>Name</th>
 			<th>Played</th>

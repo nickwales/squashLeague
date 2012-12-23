@@ -21,13 +21,14 @@ SquashLeague::Application.routes.draw do
   resources :blogs
   
   #resources :pages
-  
+  match '/rules', :to => 'pages#rules'
+  match '/tables', :to => 'pages#table'
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
 # match '/signup',  :to => 'users#new'
 #  match '/signin',	:to => 'sessions#new'
-#  match '/signout', :to => 'sessions#destroy'
+  match '/signout', :to => 'sessions#destroy'
   match '/league',  :to => 'pages#league'
   match '/results', :to => 'pages#results'
   match '/rank', :to => 'pages#rankings'

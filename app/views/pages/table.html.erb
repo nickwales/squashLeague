@@ -22,23 +22,21 @@
     <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season %>
     <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season %>
 <% end %>
-<br/><br/>
+<br/>
 
-<%
-   tables = Kaminari.paginate_array(divisions).page(params[:page]).per(5)
+<% tables = Kaminari.paginate_array(divisions).page(params[:page]).per(5)
    tables.each do |t|
-     @results = matches_to_results(t.id)
-%>
-
+     @results = matches_to_results(t.id) %>
+    <p><span style="font-size: 14pt;" ><%= t[:name] %> - </span> See <%= link_to "league", :controller => "pages", :action => "league", :page => params[:page] %></p>
     <table class="league">
       <tr>
         <td width="150px"></td>
         <%
            @results.sort.each do |n|
         %>
-            <th>
-              <%= Player.find(n[0]).name %>
-            </th>
+            <td>
+              <% if signed_in? %><%= link_to Player.find(n[0]).name, :controller => 'players', :action => 'show', :id => n[0] %><% else %><%= Player.find(n[0]).name %><% end %>
+            </td>
         <%
            end
         %>
@@ -51,7 +49,7 @@
              @b = 0 %>
 
             <td style="text-align: left;" width="150px">
-              <strong><%= Player.find(r[0]).name %></strong>
+              <% if signed_in? %><%= link_to Player.find(r[0]).name, :controller => 'players', :action => 'show', :id => r[0] %><% else %><%= Player.find(r[0]).name %><% end %>
             </td>
             <% @results.sort.each do |r2| %>
 
