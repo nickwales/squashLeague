@@ -107,17 +107,19 @@ class MatchesController < ApplicationController
                player2_name = ["@",player2_info.twitter].join("")
              end
            end
-        end     
+        end
 ## Messaging: sending tweets and emails.    
         if Rails.env.development?
-          if player1_score != "-1" or player2_score != "-1"
+          if player1_score == "-1" or player2_score == "-1"
+
+          else
             Twitter.configure do |config|
                config.consumer_key = "1XjVDsxhid6RGC2L87iOw"
                config.consumer_secret = "3D9GIbIEfiKqSMDzHTunAPJ0Cb3jGMpxTGJ5SBKXcZQ"
                config.oauth_token = "167934744-nQHj7SI2fmR9kKgp0xPgqxKThzo3b8E5Zm57LtXh"
                config.oauth_token_secret = "w151Vhz4TQ5cMaCGEeJPZyeHfw13X4PgvIek4UXhzk"
             end
-            tweet = ["Result just in, ", Player.find(player1).name, " ", player1_score, " - ", player2_score, " ",Player.find(player2).name].join("")
+            tweet = ["Result just in: ", player1_name, " ", player1_score, " - ", player2_score, " ",player2_name].join("")
             @twitter = Twitter::Client.new
             @twitter.update(tweet)                  
           end
@@ -138,7 +140,7 @@ class MatchesController < ApplicationController
         
         
         
-        format.html { redirect_to(@match, :notice => "Result has been successfully added") }
+        format.html { redirect_to(@match, :notice => player2_score.inspect) }
         format.xml  { render :xml => @match, :status => :created, :location => @match }      
       else
         format.html { redirect_to new_match_path, :alert => 'You did not enter any scores' }

@@ -43,8 +43,6 @@ class PagesController < ApplicationController
 
   def table
     @title = "Table"
-    @league = 1
-
   end
   
 
