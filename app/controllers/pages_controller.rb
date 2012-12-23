@@ -45,5 +45,7 @@ class PagesController < ApplicationController
     @title = "Table"
   end
   
-
+  def rules
+    @title = "League Rules"
+  end
 end
