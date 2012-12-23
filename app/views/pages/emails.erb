@@ -22,7 +22,7 @@ divisions.each do |d|
 	playerdivs.each do |p|		
 %>
 
-<%= User.find(p.player_id).email %>, 
+<%= Player.find(p.player_id).email %>,
 <% end %>
 </td></tr>
 <% end %>
