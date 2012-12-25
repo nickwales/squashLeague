@@ -154,6 +154,8 @@ module ApplicationHelper
       Season.all.each do |s|
         if Date.today >= s.start_date && Date.today <= s.end_date
           return s.id
+        else
+           return Season.last.id
     	  end
       end
     end 

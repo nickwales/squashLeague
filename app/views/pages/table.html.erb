@@ -1,5 +1,4 @@
-<%
-   seasons = params[:season]
+<% seasons = params[:season]
    if seasons.blank?
      seasons = current_season()
      divisions = division_ids(seasons)
@@ -15,19 +14,19 @@
 <h3> Season ending <%= Season.find(seasons).end_date.strftime("%d/%m/%Y") %></h3>
 
 <% if seasons == Season.last.id %>
-    <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season %>
+    <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season, :page => params[:page] %>
 <% elsif seasons == 1 %>
-    <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season %>
+    <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season, :page => params[:page] %>
 <% else %>
-    <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season %>
-    <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season %>
+    <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season, :page => params[:page] %>
+    <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season, :page => params[:page] %>
 <% end %>
 <br/>
 
 <% tables = Kaminari.paginate_array(divisions).page(params[:page]).per(5)
    tables.each do |t|
      @results = matches_to_results(t.id) %>
-    <p><span style="font-size: 14pt;" ><%= t[:name] %> - </span> See <%= link_to "league", :controller => "pages", :action => "league", :page => params[:page] %></p>
+    <p><span style="font-size: 14pt;" ><%= t[:name] %> - </span> See <%= link_to "league", :controller => "pages", :action => "league", :page => params[:page], :season => seasons %></p>
     <table class="league">
       <tr>
         <td width="150px"></td>
