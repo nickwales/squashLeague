@@ -8,8 +8,8 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
- *= require_tree .
+ //= require_self
+ //= require_tree .
  */
 
 body {
@@ -31,21 +31,20 @@ body {
 
 .toolbar_left {
   position:absolute;
-  float: left;
+  float:left;
   margin-left:25px;
   margin-top:13px;
-  z-index:1000;
-  left: 0px;
+  z-index:1;
+  left:0px;
 }
 .toolbar_right {
   position:absolute;
-  z-index: 999;
-  float: right;
+  z-index:999;
+  float:right;
   margin-right:0px;
   margin-top:15px;
   text-align:right;
   right:0px;
-
 }
 
 #navigation ul{

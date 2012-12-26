@@ -26,8 +26,6 @@ previous_season = seasons - 1 %>
 
 <br />
 <%
-# Sort them, paginate them. 
-#sorted_and_paginated_divisions = divisions #.paginate(:page => params[:page], :per_page => 5)
 sorted_and_paginated_divisions = Kaminari.paginate_array(divisions).page(params[:page]).per(5)
 
 # Loop through the leagues and tabulate them
