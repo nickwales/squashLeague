@@ -1,142 +1,122 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Wimbledon Squash Leagues</title>
-    <%= csrf_meta_tag %>
-    <%= render 'layouts/stylesheets' %>
-    <%= javascript_include_tag(:droplicious) %>
-	<%= javascript_include_tag(:defaults) %>
-    <%= javascript_include_tag(:application) %>
-	
-<% if Rails.env == 'production' %>
-	<script type="text/javascript">
+<head>
+  <title>Store</title>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <span class="brand-large" href="#">Wimbledon Squash</span>
 
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-20394306-2']);
-	  _gaq.push(['_trackPageview']);
+      <div class="nav-collapse">
+        <ul class="nav nav-pills">
+          <li class="dropdown-toggle" data-toggle="dropdown"><a>Leagues <b class="caret"></b></a></li>
+          <ul class="dropdown-menu">
+            <li><a tabindex="-1" href="/league">TomJohn</a></li>
+            <li><a tabindex="-1" href="/league?page=2">Gold 1-5</a></li>
+            <li><a tabindex="-1" href="/league?page=3">Gold 6-10</a></li>
+            <li><a tabindex="-1" href="/league?page=4">Silver 1-5</a></li>
+            <li><a tabindex="-1" href="/league?page=5">Silver 6-10</a></li>
+            <li><a tabindex="-1" href="/league?page=6">Bronze</a></li>
+          </ul>
+          </a>
 
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
-	</script>
-<% end %>	
-  </head>
-  <body>
-	<div class="toolbar"> 
-		<div class="toolbar_left">
-			<img src="/images/wimbledonsquash_logo2.png" align="left">
-		</div>
-		<div class="toolbar_right">
-			<ul class="navigation">
-				<ul id="nav">
-                   <li><%= link_to "Home", root_path %></li>
-                   <li>
-                           <%= link_to "Leagues", league_path, :class => 'drops' %>
-                           <ul class="licious" id="box_one" style="display:none;">
-                                   <li><%= link_to "TomJohn", league_path(:page => 1) %></li>
-                                   <li><%= link_to "Gold 1-5", league_path(:page => 2) %></li>
-                                   <li><%= link_to "Gold 6-10", league_path(:page => 3) %></li>
-                                   <li><%= link_to "Silver 1-5", league_path(:page => 4) %></li>
-                                   <li><%= link_to "Silver 6-10", league_path(:page => 5) %></li>
-                                   <li><%= link_to "Bronze 1-3", league_path(:page => 6) %></li>
-                           </ul>
-                   </li>
-                   <li><%= link_to "Ranking", rank_path %></li>
-                   <li><%= link_to "About", about_path %></li>
-                   <li><%= link_to "Contact", contact_path %></li>
-                   <% if signed_in? %>
-                           <li><%= link_to "Players", players_path %></li>
-                           <li><%= link_to "Rules", rules_path %></li>
-                           <li><%= link_to current_player.email, current_player %></li>
-                           <li><%= link_to "Sign out", destroy_player_session_path, :method => :delete %></li>
-                   <% else %>
-                           <li><%= link_to "Sign in", new_player_session_path %></li>
-                   <% end %>
-           </ul>
-		</div>
-	</div>
-
-    <div class="container">
-<!--	<div class="logo"> </div> -->
-		<div class="content_border">
-		<div class="content">
-      <%= render 'layouts/header' %>
-      <section class="round">
-        <% flash.each do |key, value| %>
-          <div class="flash <%= key %>"><%= value %></div>
-        <% end %>
-        <%= yield %>
-      </section>
-
-      <%= render 'layouts/footer' %>
-      <%= debug(params) if Rails.env.development? %>
-      
+          <li><%= link_to "Rankings", rank_path %></li>
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Contact", contact_path %></li>
+          <% if signed_in? %>
+              <li><%= link_to "Players", players_path %></li>
+              <li><%= link_to "Rules", rules_path %></li>
+              <li><%= link_to current_player.email, current_player %></li>
+              <li><%= link_to "Sign out", destroy_player_session_path, :method => :delete %></li>
+          <% else %>
+              <li><%= link_to "Sign in", new_player_session_path %></li>
+          <% end %>
+        </ul>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="span7">
+
+      <div class="content">
+
+        <section class="round">
+          <% flash.each do |key, value| %>
+              <div class="flash <%= key %>"><%= value %></div>
+          <% end %>
+          <%= yield %>
       </div>
-
-<!-- SideBar-->
-	<div class="sidebar">
-		<!-- Latest results from the database -->
-
-		<div class="patch round">
-				<span class="patch_header">Latest Results</span><br>
-				<table border="0"> 
-				<%
-				m = Match.all.last(5)
-				m.each do |match|
-					j = match.id
-					r = Result.where(:match_id => j)
-					if (r[0][:score] != -1) and (r[1][:score] != -1) %>
-					<tr class="patch_style">
-						<td align="left"><%= player_by_id(r[0][:player_id]).name %></td>
-						<td align="left"><%= r[0][:score] %></td>
-						<td align="left"> - </td>
-						<td><%= r[1][:score] %></td>
-						<td><%= player_by_id(r[1][:player_id]).name %></td>
-					</tr>	
-				<% end 
-				end %>
-				</table>
-				</div>
-
-		<% if Rails.env.production? %>
-		<div class="patch">
-		<span class="patch_header">Team Matches</span><br>
-
-			<iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=nickwales.co.uk_fflcvb8r0ojnnkfhoi8h1u2qfo%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" style= "border-width:0" width="300" height="200" frameborder="0" scrolling="no"></iframe>
-
-		</div>
-			<% end %>
-		<div class="patch">
-			<span class="patch_header">Latest Tweets @wimbledonsquash</span><br>
-			<% twitter_auth() %>
-			<% search = Twitter.search("@wimbledonsquash", :count => 5, :result_type => "recent").results.map do |status| %>
-				<span class="tweeter"><%=	"#{status.from_user}:" %></span><br /> 
-				<span class="patch_style"><%= "#{status.text}" %></span><br />
-			<% end %>
-		</div>
-
-
-
-
-		<div class="patch">
-		<span class="patch_header">Links</span><br>
-		<a class="patch_style" href="http://bookings.wimbledonclub.co.uk/Web/Login.aspx">Book a court</a><br />
-		<a class="patch_style" href="http://county.leaguemaster.co.uk/">Surrey Cup</a><br />
-		<a class="patch_style" href="http://www.surreysra.co.uk/">Surrey SRA</a><br />
-		<a class="patch_style" href="http://www.squashsite.co.uk/">Squashsite</a><br /><br />
-		</div>
-		
-	</div>
 
     </div>
 
 
-  </body>
+    <div class="span5">
+      <div class="patch round visible-desktop visible-tablet">
+        <span class="patch_header">Latest Results</span><br>
+        <table class="table table-striped" border="0">
+          <%
+             m = Match.all.last(5)
+             m.each do |match|
+               j = match.id
+               r = Result.where(:match_id => j)
+               if (r[0][:score] != -1) and (r[1][:score] != -1) %>
+                  <tr class="patch_style">
+                    <td align="left"><%= player_by_id(r[0][:player_id]).name %></td>
+                    <td align="left"><%= r[0][:score] %></td>
+                    <td align="left"> -</td>
+                    <td><%= r[1][:score] %></td>
+                    <td><%= player_by_id(r[1][:player_id]).name %></td>
+                  </tr>
+              <% end
+                 end %>
+        </table>
+      </div>
+
+      <% if Rails.env.production? %>
+          <div class="patch round hidden-phone">
+            <span class="patch_header">Team Matches</span><br>
+
+            <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=nickwales.co.uk_fflcvb8r0ojnnkfhoi8h1u2qfo%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" style="border-width:0" width="300" height="200" frameborder="0" scrolling="no"></iframe>
+
+          </div>
+      <% end %>
+
+      <div class="patch round hidden-phone">
+        <span class="patch_header">Latest Tweets @wimbledonsquash</span><br>
+        <% twitter_auth() %>
+        <% search = Twitter.search("@wimbledonsquash", :count => 5, :result_type => "recent").results.map do |status| %>
+            <span class="tweeter"><%= "#{status.from_user}:" %></span><br/>
+            <span class="patch_style"><%= "#{status.text}" %></span><br/>
+        <% end %>
+      </div>
+
+
+      <div class="patch round hidden-phone">
+        <span class="patch_header">Links</span><br>
+        <a class="patch_style" href="http://bookings.wimbledonclub.co.uk/Web/Login.aspx">Book a court</a><br/>
+        <a class="patch_style" href="http://county.leaguemaster.co.uk/">Surrey Cup</a><br/>
+        <a class="patch_style" href="http://www.surreysra.co.uk/">Surrey SRA</a><br/>
+        <a class="patch_style" href="http://www.squashsite.co.uk/">Squashsite</a><br/><br/>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
 </html>
-
-
-

@@ -1,6 +1,6 @@
 <% current_playerdiv = get_playerdiv_by_id(params[:id]) %>
 
-<table class="league">
+<table class="table table-striped">
 	<tr>
 	  <td><%= gravatar_for @player %></td>
 	  <td font-size="13px"><%= @player.name %> <% if params[:id] == current_player.id.to_s %> &nbsp; <%= link_to "edit your details",  edit_player_registration_path(@player) %><% end %></td>
@@ -46,7 +46,7 @@
 <% if !current_playerdiv.blank? %>
 
 <h4>Current Opponents</h4>
-<table>
+    <table class="table table-striped">
 	<tr>
 		<th>Name</th>
 		<th>Email</th>
@@ -68,8 +68,8 @@ players.each do |player| %>
 <% if !Result.where(:player_id => params[:id]).blank? %>
 		<p><h4>Recent Results</h4></p>
 		<% 	results = show_players_matches(10) %>
-		
-		        <table summary="player results">
+
+    <table class="table table-striped">
 				<tr>
 					<th>Date</th>
 					<th>P1</th>
@@ -100,7 +100,7 @@ players.each do |player| %>
 <% end 
 		if @playerDivMatch != "nill" && !current_playerdiv.blank?%>
 <h4>Current Division Results</h4>
-<table>
+<table class="table table-striped">
 	<tr>
 		<th>Date</th>
 		<th>P1</th>

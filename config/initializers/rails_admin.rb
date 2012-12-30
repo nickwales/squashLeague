@@ -22,8 +22,8 @@ RailsAdmin.config do |config|
 
   
   config.authorize_with :cancan
-  
-  
+
+
 
   #  ==> Global show view settings
   # Display empty fields in show views
@@ -135,27 +135,27 @@ RailsAdmin.config do |config|
   # end
   # config.model Player do
   #   # Found associations:
-  #     configure :rankings, :has_many_association 
-  #     configure :results, :has_many_association 
+  #     configure :rankings, :has_many_association
+  #     configure :results, :has_many_association
   #     configure :playerdivs, :has_many_association   #   # Found columns:
-  #     configure :id, :integer 
-  #     configure :email, :string 
-  #     configure :password, :password         # Hidden 
-  #     configure :password_confirmation, :password         # Hidden 
-  #     configure :reset_password_token, :string         # Hidden 
-  #     configure :reset_password_sent_at, :datetime 
-  #     configure :remember_created_at, :datetime 
-  #     configure :sign_in_count, :integer 
-  #     configure :current_sign_in_at, :datetime 
-  #     configure :last_sign_in_at, :datetime 
-  #     configure :current_sign_in_ip, :string 
-  #     configure :last_sign_in_ip, :string 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :admin, :boolean 
-  #     configure :name, :string 
-  #     configure :phone, :string 
-  #     configure :twitter, :string 
+  #     configure :id, :integer
+  #     configure :email, :string
+  #     configure :password, :password         # Hidden
+  #     configure :password_confirmation, :password         # Hidden
+  #     configure :reset_password_token, :string         # Hidden
+  #     configure :reset_password_sent_at, :datetime
+  #     configure :remember_created_at, :datetime
+  #     configure :sign_in_count, :integer
+  #     configure :current_sign_in_at, :datetime
+  #     configure :last_sign_in_at, :datetime
+  #     configure :current_sign_in_ip, :string
+  #     configure :last_sign_in_ip, :string
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :admin, :boolean
+  #     configure :name, :string
+  #     configure :phone, :string
+  #     configure :twitter, :string
   #     configure :active, :boolean   #   # Sections:
   #   list do; end
   #   export do; end
@@ -166,13 +166,13 @@ RailsAdmin.config do |config|
   # end
   # config.model Playerdiv do
   #   # Found associations:
-  #     configure :division, :belongs_to_association 
-  #     configure :players, :has_many_association 
+  #     configure :division, :belongs_to_association
+  #     configure :players, :has_many_association
   #     configure :matches, :has_many_association   #   # Found columns:
-  #     configure :id, :integer 
-  #     configure :division_id, :integer         # Hidden 
-  #     configure :player_id, :integer 
-  #     configure :created_at, :datetime 
+  #     configure :id, :integer
+  #     configure :division_id, :integer         # Hidden
+  #     configure :player_id, :integer
+  #     configure :created_at, :datetime
   #     configure :updated_at, :datetime   #   # Sections:
   #   list do; end
   #   export do; end

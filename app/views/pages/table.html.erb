@@ -27,9 +27,9 @@
    tables.each do |t|
      @results = matches_to_results(t.id) %>
     <p><span style="font-size: 14pt;" ><%= t[:name] %> - </span> See <%= link_to "league", :controller => "pages", :action => "league", :page => params[:page], :season => seasons %></p>
-    <table class="league">
+    <table class="table table-striped">
       <tr>
-        <td width="150px"></td>
+        <td></td>
         <%
            @results.sort.each do |n|
         %>

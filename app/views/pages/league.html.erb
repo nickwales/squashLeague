@@ -41,15 +41,15 @@ l.each do |balls|
 
 <% end %>
 
-<table class="league">
+<table class="table table-striped">
 		<p><span style="font-size: 14pt;" ><%= @div_name %> - </span> See <%= link_to "table", :controller => "pages", :action => "table", :page => params[:page] %>
 		<tr>
 			<th>Name</th>
-			<th>Played</th>
-			<th>Won</th>
-			<th>Lost</th>
-			<th>Drew</th>
-			<th>Points</th>
+			<th>P</th>
+			<th>W</th>
+			<th>L</th>
+			<th>D</th>
+			<th>Pts</th>
 		</tr>
 
 		<%	l.each do |p| %>

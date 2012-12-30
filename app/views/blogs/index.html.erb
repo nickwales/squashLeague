@@ -1,10 +1,12 @@
-<h2>Welcome to the WRFC squash leagues.</h2>
+<h2>Welcome to the WRFC squash leagues</h2>
 <h4>Recent News & Events</h4>
 
 <% @blogs.each do |blog| %>
-	<div class="blog_date"><%= blog.created_at.strftime("%d %b '%y") %></div>
-	<div id="blog_contents"><p><%= link_to blog.title, blog, :class => 'blog_title' %> - <span class="blog_author"><%= player_by_id(blog.author).name %></span></p></div>
-	<p><span class="blog_style"><%= raw blog.summary %></span></p>
+    <blockquote>
+      <small><%= blog.created_at.strftime("%d %b '%y") %></small>
+      <p><p><%= link_to blog.title, blog, :class => 'blog_title' %> - <span class="blog_author"><%= player_by_id(blog.author).name %></span></p>
+    </blockquote>
+	<span class="blog_style"><%= raw blog.summary %></span><br><br>
 <% end %>
 <%= paginate @blogs %>
 <br />
