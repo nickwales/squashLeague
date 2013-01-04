@@ -1,4 +1,4 @@
-<table class="league">
+<table class="table table-striped">
 		<h3>Rankings</h3>
 		<tr>
 			<th>Name</th>
@@ -48,7 +48,7 @@
 	
 			if p[:Played] != 0 %>
 			<tr>
-				<td><% if signed_in? %><%= link_to p[:Name], :controller => 'users', :action => 'show', :id => p[:ID] %><% else %><%= p[:Name] %><% end %></td>
+				<td><% if signed_in? %><%= link_to p[:Name], :controller => 'players', :action => 'show', :id => p[:ID] %><% else %><%= p[:Name] %><% end %></td>
 				<td><%= p[:Played] %></td>
 				<td><%= p[:Won] %></td>
 				<td><%= p[:Lost] %></td>
