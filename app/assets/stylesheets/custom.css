@@ -15,6 +15,7 @@
     border-top-right-radius: 5px 5px;
     border-bottom-right-radius: 5px 5px;
     border-bottom-left-radius: 5px 5px;
+    box-shadow: 10px 10px 5px #888888;
 }
 
 .patch_header {
@@ -31,6 +32,7 @@
     padding-left: 3%;
     padding-right: 3%;
     padding-top: 3px;
+    padding-bottom: 20px;
     background: white;
     border: solid 1px #377A8B;
     margin-bottom: 20px;
