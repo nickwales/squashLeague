@@ -142,7 +142,7 @@ class MatchesController < ApplicationController
         
         
         
-        format.html { redirect_to(@match, :notice => player2_score.inspect) }
+        format.html { redirect_to(@match, :notice => "Your match has been entered successfully") }
         format.xml  { render :xml => @match, :status => :created, :location => @match }      
       else
         format.html { redirect_to new_match_path, :alert => 'You did not enter any scores' }
