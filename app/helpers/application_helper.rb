@@ -151,9 +151,9 @@ module ApplicationHelper
 
   def current_season()
   	now = Date.today
-   a = Season.find( :all, :conditions => [ 'start_date < ? AND end_date > ?', now, now ])
+   a = Season.find( :all, :conditions => [ 'start_date <= ? AND end_date >= ?', now, now ])
    return a.first["id"]
-  end 
+  end
 
   def wanker(div_id)
     playerdivs = Array.new
