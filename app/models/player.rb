@@ -6,7 +6,6 @@ class Player < ActiveRecord::Base
   has_many :results
   has_many :playerdivs
   has_many :rankings
-  has_many :blogs
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
