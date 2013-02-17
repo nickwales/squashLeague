@@ -16,6 +16,7 @@ class PagesController < ApplicationController
   end
   
   def league
+
     @league = 1
     @title = "Leagues"
     @season = 1
@@ -37,7 +38,7 @@ class PagesController < ApplicationController
     rankings2 = Array.new
   end
     @league_players = Playerdiv.joins(:division).where(:divisions => {:season_id => @season})
-    @players = Result.joins(:match).where(:matches => {:playerdiv_id => 1}).where(:results => {:player_id => (params[:article])})
+    @players = Result.joins(:match).where(:matches => {:division_id => 1}).where(:results => {:player_id => (params[:article])})
   end
   
 

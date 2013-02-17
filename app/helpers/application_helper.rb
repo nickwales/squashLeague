@@ -84,7 +84,7 @@ module ApplicationHelper
 
   ## Gets matches from a division
   def get_division_matches_played(division,player_id)
-    results = Match.joins(:results).where(:results => {:player_id => player_id}).where(:matches => {:playerdiv_id => division})
+    results = Match.joins(:results).where(:results => {:player_id => player_id}).where(:matches => {:division_id => division})
     @oppo_result = Array.new     #Get the opposition names in an active record relation
     results.each do |m|
       @oppo_result << Result.where(:match_id => m).where('player_id != ?', player_id)
