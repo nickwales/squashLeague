@@ -14,6 +14,10 @@ module PagesHelper
     end
   end
 
+  def player_data(player_id)
+
+  end
+
   # Create the rankings table for everyone
   def show_rankings()
     players = Player.all
@@ -88,7 +92,7 @@ module PagesHelper
 
   # Get the matches a player has played in a season
   def player_matches(player, playerdiv)
-    result = Match.joins(:results).where(:results => {:player_id => player}).where(:playerdiv_id => playerdiv)
+    result = Match.joins(:results).where(:results => {:player_id => player}).where(:division_id => playerdiv)
     @player_matches = Array.new
     result.each do |m|
       @player_matches << m.id
