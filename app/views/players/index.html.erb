@@ -6,14 +6,12 @@
 		<th>Name</th>
 		<th>Email</th>
 		<th>Mobile</th>
-		<th>@twitter</th>
 	</tr>
 <% @players.each do |u| %>	
 	<tr>
 		<td><%= link_to u.name, u %></td>
 		<td><%= mail_to u.email %></td>
 		<td><%= u.phone %></td>
-		<td><%= u.twitter %></td>
 	</tr>
 <% end %>
 </table>
