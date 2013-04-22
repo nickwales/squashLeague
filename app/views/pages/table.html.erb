@@ -34,7 +34,7 @@
            @results.sort.each do |n|
         %>
             <td>
-              <% if signed_in? %><%= link_to Player.find(n[0]).name, :controller => 'players', :action => 'show', :id => n[0] %><% else %><%= Player.find(n[0]).name %><% end %>
+              <% if signed_in? %><%= link_to Player.find(n[0]).name, :controller => 'players', :action => 'show', :id => n[0] %><% else %><%= Player.find(n[0]).name.gsub(/[^A-Z]/, '') %><% end %>
             </td>
         <%
            end

@@ -224,7 +224,7 @@ module PagesHelper
       hashyname.succ!
     end
 
-    matches = Match.where(:playerdiv_id => division_id)
+    matches = Match.where(:division_id => division_id)
     matches.each do |m|
       results = Result.where(:match_id => m.id)
       @player_hash[results.first.player_id].merge!(results[1].player_id => results.first.score)
