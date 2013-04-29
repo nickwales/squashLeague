@@ -1,18 +1,24 @@
 <h1>Listing matches</h1>
 
-<table>
+<table class=>
   <tr>
-    <th>Playerdiv</th>
-    <th>Index</th>
+    <th>Division</th>
+    <th>Player 1</th>
+    <th>Score</th>
+    <th>Player 2</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @matches.each do |match| %>
+
+      <% result = match_result_a(match.id) %>
   <tr>
-    <td><%= match.playerdiv_id %></td>
-    <td><%= match.index %></td>
+    <td><%= match.division_id %></td>
+    <td><%= Player.find(result[0].player_id).name %></td>
+    <td><%= result[0].score %> - <%= result[1].score %></td>
+    <td><%= Player.find(result[1].player_id).name %></td>
     <td><%= link_to 'Show', match %></td>
     <td><%= link_to 'Edit', edit_match_path(match) %></td>
     <td><%= link_to 'Destroy', match, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
@@ -21,5 +27,5 @@
 </table>
 <%= paginate @matches %>
 <br />
-
 <%= link_to 'New Match', new_match_path %>
+

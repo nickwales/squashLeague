@@ -8,6 +8,11 @@ class MatchesController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @matches }
     end
+
+
+  end
+  def match_result_a(id)
+    @result = Result.where(:match_id => id)
   end
 
   # GET /matches/1
