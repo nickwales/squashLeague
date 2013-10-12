@@ -1,5 +1,5 @@
 class ResultMailer < ActionMailer::Base
-  default :from => "results@tomjohnleague.co.uk"
+  default :from => "squash.league@wimbledonclub.co.uk"
   
   def result_email(player1,player2,player1_score,player2_score)
     player1_email = Player.find(player1).email
@@ -20,6 +20,6 @@ class ResultMailer < ActionMailer::Base
     else
       @result = "false"
     end
-      mail(:to => [player1_email,player2_email,"results@tomjohnleague.co.uk"], :subject => "Squash Result")
+      mail(:to => [player1_email,player2_email,"squash.league@wimbledonclub.co.uk"], :subject => "Squash Result")
     end
 end
