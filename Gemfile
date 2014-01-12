@@ -12,7 +12,7 @@ gem 'rmagick', :require => 'RMagick'
 gem 'gruff'
 gem 'elo'
 gem 'execjs'
-gem 'therubyracer'
+gem 'therubyracer', '0.12.0'
 
 
 # Bundle edge Rails instead:
