@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
 	  @player = Player.find(params[:id])	  
 	  if !Playerdiv.where(:player_id => params[:id]).empty?
       @currentDiv = Playerdiv.where(:player_id => params[:id]).last
-      @playerDivMatch = Match.where(:playerdiv_id => @currentDiv.division_id)
+      @playerDivMatch = Match.where(:division_id => @currentDiv.division_id)
     else
       @currentDiv = "nill"
       @playerDivMatch = "nill"
