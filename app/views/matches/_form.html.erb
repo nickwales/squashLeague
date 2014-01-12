@@ -14,7 +14,7 @@
   <div class="field">
 	<!-- Get the division_id for current logged in player -->
   	<% current_playerdiv = get_playerdiv %>
-    <%= f.hidden_field :playerdiv_id, :value => current_playerdiv.division_id %><br />
+    <%= f.hidden_field :division_id, :value => current_playerdiv.division_id %><br />
 	
 	<!-- The controller makes this happen twice -->
 	<%= f.fields_for :results do |result_form| %>
