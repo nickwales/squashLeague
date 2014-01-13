@@ -3,4 +3,6 @@ class Playerdiv < ActiveRecord::Base
   belongs_to :division
   has_many :matches
   belongs_to :player
+
+  validates_uniqueness_of :player_id, :scope => :division_id
 end
