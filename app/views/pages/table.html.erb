@@ -10,8 +10,8 @@
    next_season = seasons + 1
    previous_season = seasons - 1 %>
 
-
-<h3> Season ending <%= Season.find(seasons).end_date.strftime("%d/%m/%Y") %></h3>
+<div id="league-nav">
+<h3> Season ending <%= Season.find(seasons).end_date.strftime("%d/%m/%Y") %></h3> <%= link_to_function("Print this Page", "javascript:print()") %>
 
 <% if seasons == Season.last.id %>
     <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season, :page => params[:page] %>
@@ -21,12 +21,12 @@
     <%= link_to "Previous Season", :controller => "pages", :action => "table", :season => previous_season, :page => params[:page] %>
     <%= link_to "Next Season", :controller => "pages", :action => "table", :season => next_season, :page => params[:page] %>
 <% end %>
-<br/>
+</div>
 
 <% tables = Kaminari.paginate_array(divisions).page(params[:page]).per(5)
    tables.each do |t|
      @results = matches_to_results(t.id) %>
-    <p><span style="font-size: 14pt;" ><%= t[:name] %> - </span> See <%= link_to "league", :controller => "pages", :action => "league", :page => params[:page], :season => seasons %></p>
+    <p><span style="font-size: 14pt;" ><%= t[:name] %></span><span id="league-nav"> - See <%= link_to "league", :controller => "pages", :action => "league", :page => params[:page], :season => seasons %></p></span>
     <table class="table table-striped">
       <tr>
         <td></td>
@@ -73,4 +73,4 @@
         </table>
 <% end %>
 
-<%= paginate tables %>
+<span id="league-nav"><%= paginate tables %></span>

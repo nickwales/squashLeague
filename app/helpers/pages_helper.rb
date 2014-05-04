@@ -113,31 +113,31 @@ module PagesHelper
       elsif score_1[:score] == 3 && score_2[:score] == 0
         points = 7
       elsif score_1[:score] == 2 && score_2[:score] == 3
-        points = 3
+        points = 4
       elsif score_1[:score] == 1 && score_2[:score] == 3
-        points = 2
+        points = 3
       elsif score_1[:score] == 0 && score_2[:score] == 3
-        points = 1
-      elsif score_1[:score] == 2 && score_2[:score] == 0
-        points = 5
-      elsif score_1[:score] == 2 && score_2[:score] == 1
-        points = 5
-      elsif score_1[:score] == 1 && score_2[:score] == 2
         points = 2
+      elsif score_1[:score] == 2 && score_2[:score] == 0
+        points = 4
+      elsif score_1[:score] == 2 && score_2[:score] == 1
+        points = 4
+      elsif score_1[:score] == 1 && score_2[:score] == 2
+        points = 3
       elsif score_1[:score] == 0 && score_2[:score] == 2
-        points = 1
+        points = 2
       elsif score_1[:score] == 2 && score_2[:score] == 2
         points = 4
       elsif score_1[:score] == 1 && score_2[:score] == 0
-        points = 4
+        points = 3
       elsif score_1[:score] == 0 && score_2[:score] == 1
-        points = 1
+        points = 2
       elsif score_1[:score] == 1 && score_2[:score] == 1
         points = 3
       elsif score_1[:score] == 0 && score_2[:score] == 0
         points = 2
       elsif score_2[:score] == -1
-        points = 7
+        points = 6
       elsif score_1[:score] == -1
         points = 0
       end
@@ -149,31 +149,31 @@ module PagesHelper
       elsif score_2[:score] == 3 && score_1[:score] == 0
         points = 7
       elsif score_2[:score] == 2 && score_1[:score] == 3
-        points = 3
+        points = 4
       elsif score_2[:score] == 1 && score_1[:score] == 3
-        points = 2
+        points = 3
       elsif score_2[:score] == 0 && score_1[:score] == 3
-        points = 1
-      elsif score_2[:score] == 2 && score_1[:score] == 0
-        points = 5
-      elsif score_2[:score] == 2 && score_1[:score] == 1
-        points = 5
-      elsif score_2[:score] == 1 && score_1[:score] == 2
         points = 2
+      elsif score_2[:score] == 2 && score_1[:score] == 0
+        points = 4
+      elsif score_2[:score] == 2 && score_1[:score] == 1
+        points = 4
+      elsif score_2[:score] == 1 && score_1[:score] == 2
+        points = 3
       elsif score_2[:score] == 0 && score_1[:score] == 2
-        points = 1
+        points = 2
       elsif score_2[:score] == 2 && score_1[:score] == 2
         points = 4
       elsif score_2[:score] == 1 && score_1[:score] == 0
-        points = 4
+        points = 3
       elsif score_2[:score] == 0 && score_1[:score] == 1
-        points = 1
+        points = 2
       elsif score_2[:score] == 1 && score_1[:score] == 1
         points = 3
       elsif score_2[:score] == 0 && score_1[:score] == 0
         points = 2
       elsif score_1[:score] == -1
-        points = 7
+        points = 6
       elsif score_2[:score] == -1
         points = 0
       end
