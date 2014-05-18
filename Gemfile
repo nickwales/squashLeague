@@ -8,16 +8,11 @@ gem 'rails_admin'
 gem 'fastercsv'
 gem 'cancan'
 gem 'twitter', '4.3.0'
-gem 'rmagick', :require => 'RMagick'
+#gem 'rmagick'#, :require => 'RMagick'
 gem 'gruff'
 gem 'elo'
 gem 'execjs'
 gem 'therubyracer', '0.12.0'
-
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 gem 'json'
 
@@ -46,7 +41,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano', '3.0.1'
