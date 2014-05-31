@@ -25,14 +25,14 @@ working_directory "/var/www/squashLeague/current" # available in 0.94.0+
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/var/www/squashLeague/current/tmp/sockets/unicorn.sock", :backlog => 64
+listen "/var/www/squashLeague/shared/unicorn.sock", :backlog => 64
 listen 8080, :tcp_nopush => true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
 # feel free to point this anywhere accessible on the filesystem
-pid "/var/www/squashLeague/current/tmp/pids/unicorn.pid"
+pid "/var/www/squashLeague/shared/unicorn.pid"
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,
@@ -69,20 +69,20 @@ before_fork do |server, worker|
   # # thundering herd (especially in the "preload_app false" case)
   # # when doing a transparent upgrade.  The last worker spawned
   # # will then kill off the old master process with a SIGQUIT.
-  # old_pid = "#{server.config[:pid]}.oldbin"
-  # if old_pid != server.pid
-  #   begin
-  #     sig = (worker.nr + 1) >= server.worker_processes ? :QUIT : :TTOU
-  #     Process.kill(sig, File.read(old_pid).to_i)
-  #   rescue Errno::ENOENT, Errno::ESRCH
-  #   end
-  # end
+   old_pid = "#{server.config[:pid]}.oldbin"
+   if old_pid != server.pid
+     begin
+       sig = (worker.nr + 1) >= server.worker_processes ? :QUIT : :TTOU
+       Process.kill(sig, File.read(old_pid).to_i)
+     rescue Errno::ENOENT, Errno::ESRCH
+     end
+   end
   #
   # Throttle the master from forking too quickly by sleeping.  Due
   # to the implementation of standard Unix signal handlers, this
   # helps (but does not completely) prevent identical, repeated signals
   # from being lost when the receiving process is busy.
-  # sleep 1
+   sleep 1
 end
 
 after_fork do |server, worker|
