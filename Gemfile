@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '1.8.7'
+
 gem 'rails', '3.2.6'
 gem 'devise', '2.1.0'
 gem 'kaminari'
