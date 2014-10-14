@@ -3,7 +3,7 @@ set :repo_url, 'git@github.com:nickwales/squashLeague.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, '/var/www/squashLeague'
+set :deploy_to, '/usr/share/nginx/squashLeague'
 # set :scm, :git
 
 # set :format, :pretty
@@ -23,8 +23,8 @@ namespace :deploy do
     on roles(:app) do #, in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      execute 'cd /var/www/squashLeague/current && bundle install --deployment'
-      execute 'cd /var/www/squashLeague/current && bundle exec rake assets:precompile'
+      execute 'cd /usr/share/nginx/squashLeague && bundle install --deployment'
+      execute 'cd /usr/share/nginx/squashLeague && bundle exec rake assets:precompile'
       execute '/etc/init.d/squashLeague restart'
 
     end
