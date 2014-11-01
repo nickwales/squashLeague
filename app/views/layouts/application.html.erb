@@ -117,16 +117,6 @@
       <% end %>
 
       <div class="patch round hidden-phone">
-        <span class="patch_header">Latest Tweets @wimbledonsquash</span><br>
-        <% twitter_auth() %>
-        <% search = Twitter.search("@wimbledonsquash", :count => 5, :result_type => "recent").results.map do |status| %>
-            <span class="tweeter"><%= "#{status.from_user}:" %></span><br/>
-            <span class="patch_style"><%= "#{status.text}" %></span><br/>
-        <% end %>
-      </div>
-
-
-      <div class="patch round hidden-phone">
         <span class="patch_header">Links</span><br>
         <a class="patch_style" href="http://bookings.wimbledonclub.co.uk/Web/Login.aspx">Book a court</a><br/>
         <a class="patch_style" href="http://county.leaguemaster.co.uk/">Surrey Cup</a><br/>
