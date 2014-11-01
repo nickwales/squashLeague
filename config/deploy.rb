@@ -23,9 +23,10 @@ namespace :deploy do
     on roles(:app) do #, in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      execute 'cd /usr/share/nginx/squashLeague && bundle install --deployment'
-      execute 'cd /usr/share/nginx/squashLeague && bundle exec rake assets:precompile'
-      execute '/etc/init.d/squashLeague restart'
+      execute 'cd /usr/share/nginx/squashLeague/current && bundle install --deployment'
+      execute 'cd /usr/share/nginx/squashLeague/current && bundle exec rake assets:precompile'
+      execute '/etc/init.d/unicorn reload'
+#      execute '/etc/init.d/nginx reload'      
 
     end
   end
