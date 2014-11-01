@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.2'
 
-gem 'rails', '3.2.19'
+gem 'rails', '3.2.6'
 gem 'devise', '2.1.0'
 gem 'kaminari'
 gem 'gravatar_image_tag'
