@@ -1,5 +1,5 @@
 class Division < ActiveRecord::Base
-  attr_accessible :name, :number, :season_id
+ # attr_accessible :name, :number, :season_id
   has_many :playerdivs
   
   class Ability

@@ -1,5 +1,5 @@
 class Match < ActiveRecord::Base
-  attr_accessible :division_id, :rankings_attributes, :results_attributes
+#  attr_accessible :division_id, :rankings_attributes, :results_attributes
   has_many :results, :dependent => :delete_all, :inverse_of => :match
   has_many :rankings, :dependent => :delete_all
   #belongs_to :playerdiv

@@ -21,20 +21,20 @@ SquashLeague::Application.routes.draw do
   resources :blogs
   
   #resources :pages
-  match '/rules', :to => 'pages#rules'
-  match '/tables', :to => 'pages#table'
-  match '/contact', :to => 'pages#contact'
-  match '/about',   :to => 'pages#about'
-  match '/help',    :to => 'pages#help'
+  get '/rules', :to => 'pages#rules'
+  get '/tables', :to => 'pages#table'
+  get '/contact', :to => 'pages#contact'
+  get '/about',   :to => 'pages#about'
+  get '/help',    :to => 'pages#help'
 # match '/signup',  :to => 'users#new'
 #  match '/signin',	:to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
-  match '/league',  :to => 'pages#league'
-  match '/results', :to => 'pages#results'
-  match '/rank', :to => 'pages#rankings'
-  match '/about',    :to => 'pages#about'
+  get '/signout', :to => 'sessions#destroy'
+  get '/league',  :to => 'pages#league'
+  get '/results', :to => 'pages#results'
+  get '/rank', :to => 'pages#rankings'
+  get '/about',    :to => 'pages#about'
 #  match '/league/gold',  :to => 'pages#league?page=2'
-  match '/emails', :to => 'pages#emails'
+  get '/emails', :to => 'pages#emails'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

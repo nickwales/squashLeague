@@ -9,8 +9,11 @@
 /.bundle
 
 # Ignore all databases
-/db/*.sqlite3
+/db/*.sqlite3*
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+public/assets/
+vendor/bundle/

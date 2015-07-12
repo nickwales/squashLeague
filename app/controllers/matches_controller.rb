@@ -114,34 +114,7 @@ class MatchesController < ApplicationController
            end
         end
 ## Messaging: sending tweets and emails.    
-        if Rails.env.development?
-          if player1_score == "-1" or player2_score == "-1"
-
-          else
-            Twitter.configure do |config|
-               config.consumer_key = "1XjVDsxhid6RGC2L87iOw"
-               config.consumer_secret = "3D9GIbIEfiKqSMDzHTunAPJ0Cb3jGMpxTGJ5SBKXcZQ"
-               config.oauth_token = "167934744-nQHj7SI2fmR9kKgp0xPgqxKThzo3b8E5Zm57LtXh"
-               config.oauth_token_secret = "w151Vhz4TQ5cMaCGEeJPZyeHfw13X4PgvIek4UXhzk"
-            end
-            tweet = ["Result just in: ", player1_name, " ", player1_score, " - ", player2_score, " ",player2_name].join("")
-            @twitter = Twitter::Client.new
-            @twitter.update(tweet)                  
-          end
-        elsif Rails.env.production?  
-           if player1_score == "-1" or player2_score == "-1"
-
-           else
-             Twitter.configure do |config|
-                config.consumer_key = "MmLpCfZryJpziDQrP6v2fA"
-                config.consumer_secret = "r1JnVOv0fqpKWf85PYy7NqIeujLlso7Rz77dMBz0GJM"
-                config.oauth_token = "304956678-t1zBhgd9WPsLt2iPziMtMJUky7N67At8sBJOLVtE"
-                config.oauth_token_secret = "S1Y9hkH9Sx9HOvXHzFDpceX1JyNZjKveaWmUl0QaMQ"
-             end
-             tweet = ["Result just in, ", Player.find(player1).name, " ", player1_score, " - ", player2_score, " ",Player.find(player2).name].join("")
-             @twitter = Twitter::Client.new
-             @twitter.update(tweet)                  
-           end
+        if Rails.env.production?  
            ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
         end
         
