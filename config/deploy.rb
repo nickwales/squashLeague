@@ -1,6 +1,6 @@
 set :application, 'squashLeague'
 set :repo_url, 'git@github.com:nickwales/squashLeague.git'
-
+set :branch, 'rails_4_2_upgrade'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/usr/share/nginx/squashLeague'

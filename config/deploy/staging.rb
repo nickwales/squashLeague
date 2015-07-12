@@ -15,7 +15,7 @@ set :stage, :staging
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '178.62.122.89', user: 'root', roles: %w{app} #, my_property: :my_value
+server '46.101.42.167', user: 'root', roles: %w{app} #, my_property: :my_value
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
@@ -38,5 +38,7 @@ server '178.62.122.89', user: 'root', roles: %w{app} #, my_property: :my_value
 #     # password: 'please use keys'
 #   }
 # setting per server overrides global ssh_options
+
+
 
 fetch(:default_env).merge!(rails_env: :production)
