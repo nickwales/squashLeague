@@ -55,7 +55,7 @@ class MatchesController < ApplicationController
   # POST /matches
   # POST /matches.xml
   def create    
-    #@unplayed = other_playerdiv_players_array(get_playerdiv().division_id,current_player.id)
+
     @unplayed = unplayed_playerdiv_players(get_playerdiv().division_id,current_player.id)
     #We need to edit the params here a bit!
     #Fix players 2s elo player_id, easypeasy.
@@ -87,7 +87,7 @@ class MatchesController < ApplicationController
       end
     #  format.xml  { render :xml => @match.errors, :status => :unprocessable_entity }
     else      
-      @match = Match.new(params[:match])
+      @match = Match.new(match_params)
       respond_to do |format|
        if @match.save
          if Rails.env.production?
@@ -113,7 +113,7 @@ class MatchesController < ApplicationController
              end
            end
         end
-## Messaging: sending tweets and emails.    
+        ## Messaging: sending tweets and emails.
         if Rails.env.production?  
            ResultMailer.result_email(params['match']['rankings_attributes']['0']['player_id'],params['match']['rankings_attributes']['1']['player_id'],params['match']['results_attributes']['0']['score'],params['match']['results_attributes']['1']['score']).deliver
         end
@@ -157,4 +157,11 @@ end
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def match_params
+    params.require(:match).permit(:division_id, results_attributes: [:player_id, :score, :active], rankings_attributes: [:score, :player_id, :match_id])
+  end
+
 end
