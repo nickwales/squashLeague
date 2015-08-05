@@ -12,6 +12,8 @@ chmod 600 /home/deploy/.ssh/authorized_keys
 /bin/cp -f /vagrant/install_scripts/nginx.conf /etc/nginx/
 #/bin/cp -f /vagrant/install_scripts/unicorn.conf /etc/
 
+/bin/cp -f /vagrant/install_scripts/unicorn_squashLeague /etc/init.d/
+chmod 755 /etc/init.d/unicorn_squashLeague
 
 sed -i '/^APP_ROOT/c\APP_ROOT=\"/usr/share/nginx/squashLeague\"' /etc/default/unicorn
 sed -i '/^PID/c\PID=\"$APP_ROOT/shared/unicorn.pid\"' /etc/default/unicorn
