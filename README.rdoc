@@ -1,5 +1,0 @@
-=== Squash League Manager
-
-A bespoke rails application for the Wimbledon squash club leagues. 
-
-

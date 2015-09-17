@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 Vagrant.configure('2') do |config|
 
-  config.vm.hostname = "squashleague"
+  config.vm.hostname = "squashleague-test"
   config.vm.provision "shell", path: "script.sh"
 
   config.vm.provider :digital_ocean do |provider, override|
@@ -11,10 +11,10 @@ Vagrant.configure('2') do |config|
     override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
     provider.ssh_key_name = "Nick"
 
-    provider.token = '4fdba651e9f0495cc5b52cfc3b7d974856f56694b635044286513ea83d00f075' # Geoff
-#    provider.token = '903bb4463e119d3bea22ad58720cec4c92f627e836cee2c183a47aaa6e51cb5a' # Nick
+#    provider.token = '4fdba651e9f0495cc5b52cfc3b7d974856f56694b635044286513ea83d00f075' # Geoff
+    provider.token = '903bb4463e119d3bea22ad58720cec4c92f627e836cee2c183a47aaa6e51cb5a' # Nick
     provider.image = 'ubuntu-14-10-x64'
-    provider.region = 'lon1'
+    provider.region = 'nyc1'
     provider.size = '512mb'
   end
 end
